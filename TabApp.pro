@@ -16,11 +16,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         home.cpp \
     welcomepage.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    mynetwork.cpp
 
 HEADERS  += home.h \
     welcomepage.h \
-    mainwindow.h
+    mainwindow.h \
+    mynetwork.h
 
 FORMS    += home.ui \
     welcomepage.ui \

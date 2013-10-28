@@ -6,6 +6,8 @@
 #include <string>
 #include <QNetworkReply>
 
+#include "mynetwork.h"
+
 namespace Ui {
 class WelcomePage;
 }
@@ -16,15 +18,12 @@ class WelcomePage : public QDialog
 
 public:
     explicit WelcomePage(QWidget *parent = 0);
-    void MyPostRequest(const QString &auth,const QString &username,const QString &password);
     ~WelcomePage();
 
 private slots:
     void on_credits_clicked();
 
     void on_signIn_clicked();
-
-    void ReplyFinished(QNetworkReply *reply);
 
     void on_pushButton_clicked();
 
@@ -34,6 +33,7 @@ private slots:
 
     void on_password_returnPressed();
 
+    void doThis1(MyNetwork *myPost);
 private:
     Ui::WelcomePage *ui;
 };

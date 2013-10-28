@@ -1,6 +1,7 @@
 #include "welcomepage.h"
 #include "ui_welcomepage.h"
 #include "mainwindow.h"
+#include "mynetwork.h"
 
 #include <iostream>
 #include <string>
@@ -20,6 +21,8 @@ WelcomePage::WelcomePage(QWidget *parent) :
     ui->forgetBox->hide();
     ui->createAnAccountBox->hide();
 
+//    QString myNetworkStr(myPost->postData);
+//    std::cout << "The response: " << myNetworkStr.toStdString() << std::endl;
 }
 
 WelcomePage::~WelcomePage()
@@ -47,54 +50,33 @@ void WelcomePage::on_signIn_clicked()
     ui->signInBox->show();
 }
 
-void WelcomePage::MyPostRequest(const QString &auth,const QString &username,const QString &password)
-{
-    QUrl url("http://webservices.pongsit.com/cs340/index.php");
-    QNetworkRequest request = QNetworkRequest(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-
-    QNetworkAccessManager * TheNetworkManager = new QNetworkAccessManager(this);
-
-    QByteArray postData;
-    postData.append("auth=").append(auth);
-    postData.append("&").append("action=").append("signIn");
-    postData.append("&").append("username=").append(username);
-    postData.append("&").append("password=").append(password);
-
-    connect(TheNetworkManager, SIGNAL(finished(QNetworkReply*)),this, SLOT(ReplyFinished(QNetworkReply *)));
-
-    TheNetworkManager->post(request,postData);
-
-}
-
-void WelcomePage::ReplyFinished(QNetworkReply *reply)
-{
-    if(reply->error() == QNetworkReply::NoError){
-        QByteArray response = reply->readAll();
-        QString responsStr(response);
-        //std::cout << "The response: " << responsStr.toStdString() << std::endl;
-        if(responsStr.compare("Good") == 0){
-            this->hide();
-            MainWindow mainWindow;
-            //mainWindow.showInfo(responsStr);
-            mainWindow.show();
-            mainWindow.setFixedSize(mainWindow.size());
-            mainWindow.exec();
-        }else{
-            ui->Notifications->setText("Username or password is not correct.");
-        }
-    }else{
-        ui->Notifications->setText("Cannot connect to the server. Please try again later.");
-    }
-}
 
 void WelcomePage::on_pushButton_clicked()
 {
-    QString auth = "bsap";
     QString username = ui->username->text();
     QString password = ui->password->text();
-    WelcomePage::MyPostRequest(auth,username,password);
-    //std::cout << "The input: " << theText.toStdString() << std::endl;
+
+    MyNetwork *myPost = new MyNetwork;
+    myPost->setPost("action","signIn");
+    myPost->setPost("username",username);
+    myPost->setPost("password",password);
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(doThis1(MyNetwork *)));
+    myPost->sendPost();
+}
+
+void WelcomePage::doThis1(MyNetwork *myPost){
+    QString theResponse = myPost->theResponse;
+    if(theResponse.compare("Good") == 0){
+        this->hide();
+        MainWindow mainWindow;
+        //mainWindow.showInfo(responsStr);
+        mainWindow.show();
+        mainWindow.setFixedSize(mainWindow.size());
+        mainWindow.exec();
+    }else{
+        ui->Notifications->setText("Username or password is not correct.");
+    }
 }
 
 void WelcomePage::on_forgetPassword_clicked()
