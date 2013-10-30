@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QDialog>
+#include <QDialogButtonBox>
+#include <QAbstractButton>
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +18,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_2_clicked();
+    void resetBox();
+    void okBox();
 
 private:
     Ui::MainWindow *ui;
