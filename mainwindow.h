@@ -13,6 +13,7 @@ class MainWindow : public QDialog
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void setHiUserText(QString hiText);
     ~MainWindow();
 
 private slots:

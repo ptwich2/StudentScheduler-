@@ -37,12 +37,25 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="homeTab">
     <attribute name="title">
      <string>Home</string>
     </attribute>
+    <widget class="QLabel" name="hiUser">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>501</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="addNew">
     <attribute name="title">
@@ -66,7 +79,7 @@
         <x>0</x>
         <y>0</y>
         <width>781</width>
-        <height>279</height>
+        <height>270</height>
        </rect>
       </property>
       <attribute name="label">

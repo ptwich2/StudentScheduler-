@@ -17,3 +17,7 @@ void MainWindow::on_pushButton_2_clicked()
 {
     ui->test111->setText("Hi");
 }
+
+void MainWindow::setHiUserText(QString hiText){
+    ui->hiUser->setText(hiText);
+}

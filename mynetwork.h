@@ -13,7 +13,7 @@ public:
     MyNetwork();
     void setPost(const QString &theKey,const QString &theValue);
     void sendPost();
-    QString theResponse;
+    QByteArray theResponse;
 public slots:
     void setResponse(QNetworkReply *reply);
 signals:

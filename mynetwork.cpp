@@ -13,7 +13,7 @@
 MyNetwork::MyNetwork()
 {
     postData.append("auth=bsap");
-    theResponse = "hi!";
+    theResponse = "";
 }
 
 void MyNetwork::setPost(const QString &theKey,const QString &theValue)
@@ -36,8 +36,7 @@ void MyNetwork::setResponse(QNetworkReply *reply)
 {
     if(reply->error() == QNetworkReply::NoError){
         QByteArray response = reply->readAll();
-        QString responsStr(response);
-        theResponse = responsStr;
+        theResponse = response;
     }else{
         theResponse = "Cannot connect to the server.";
     }

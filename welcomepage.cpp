@@ -13,6 +13,11 @@
 #include <QNetworkReply>
 #include <QApplication>
 
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+
 WelcomePage::WelcomePage(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::WelcomePage)
@@ -66,16 +71,31 @@ void WelcomePage::on_pushButton_clicked()
 }
 
 void WelcomePage::doThis1(MyNetwork *myPost){
-    QString theResponse = myPost->theResponse;
-    if(theResponse.compare("Good") == 0){
+
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonObject jsonObject = jsonResponse.object();
+    qDebug() << myPost->theResponse;
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
+    QJsonValue theUsername = theInfoValueObject["username"];
+    QJsonValue theFirstName = theInfoValueObject["firstName"];
+    QJsonValue theLastName = theInfoValueObject["lastName"];
+    QJsonValue theEmail = theInfoValueObject["email"];
+
+    qDebug() << theEmail.toString();
+    if(theStatusValue.toString().compare("Good") == 0){
         this->hide();
         MainWindow mainWindow;
+        mainWindow.setHiUserText("Hi! "+theFirstName.toString()+" "+theLastName.toString()+" <br /> "+
+                                 "Your email is "+theEmail.toString()+" <br /> "+
+                                 "Your username is "+theUsername.toString());
         //mainWindow.showInfo(responsStr);
         mainWindow.show();
         mainWindow.setFixedSize(mainWindow.size());
         mainWindow.exec();
     }else{
-        ui->Notifications->setText("Username or password is not correct.");
+        ui->Notifications->setText(theStatusValue.toString());
     }
 }
 
@@ -100,4 +120,48 @@ void WelcomePage::on_createAnAccount_clicked()
 void WelcomePage::on_password_returnPressed()
 {
     on_pushButton_clicked();
+}
+
+void WelcomePage::on_submitInCreateAcc_clicked()
+{
+    QString username = ui->usernameInCreateAcc->text();
+    QString password = ui->passwordInCreateAcc->text();
+    QString email = ui->emailInCreateAcc->text();
+
+    MyNetwork *myPost = new MyNetwork;
+    myPost->setPost("action","signUp");
+    myPost->setPost("username",username);
+    myPost->setPost("password",password);
+    myPost->setPost("email",email);
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(doThis2(MyNetwork *)));
+    myPost->sendPost();
+}
+
+void WelcomePage::doThis2(MyNetwork *myPost){
+
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonObject jsonObject = jsonResponse.object();
+    qDebug() << myPost->theResponse;
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
+    QJsonValue theUsername = theInfoValueObject["username"];
+    QJsonValue theFirstName = theInfoValueObject["firstName"];
+    QJsonValue theLastName = theInfoValueObject["lastName"];
+    QJsonValue theEmail = theInfoValueObject["email"];
+
+    qDebug() << theEmail.toString();
+    if(theStatusValue.toString().compare("Good") == 0){
+        this->hide();
+        MainWindow mainWindow;
+        mainWindow.setHiUserText("Congratulations! Your username is "+theUsername.toString()+" <br />"
+                                  +" Your email is " + theEmail.toString());
+        //mainWindow.showInfo(responsStr);
+        mainWindow.show();
+        mainWindow.setFixedSize(mainWindow.size());
+        mainWindow.exec();
+    }else{
+        ui->Notifications->setText(theStatusValue.toString());
+    }
 }
