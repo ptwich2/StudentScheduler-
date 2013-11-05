@@ -37,12 +37,17 @@
     </font>
    </property>
    <property name="currentIndex">
+<<<<<<< HEAD
     <number>0</number>
+=======
+    <number>1</number>
+>>>>>>> feature/bresia_branch
    </property>
    <widget class="QWidget" name="homeTab">
     <attribute name="title">
      <string>Home</string>
     </attribute>
+<<<<<<< HEAD
     <widget class="QLabel" name="hiUser">
      <property name="geometry">
       <rect>
@@ -56,6 +61,8 @@
       <string/>
      </property>
     </widget>
+=======
+>>>>>>> feature/bresia_branch
    </widget>
    <widget class="QWidget" name="addNew">
     <attribute name="title">
@@ -79,22 +86,94 @@
         <x>0</x>
         <y>0</y>
         <width>781</width>
+<<<<<<< HEAD
         <height>270</height>
+=======
+        <height>279</height>
+>>>>>>> feature/bresia_branch
        </rect>
       </property>
       <attribute name="label">
        <string>Add New Semester</string>
       </attribute>
+<<<<<<< HEAD
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
          <x>30</x>
          <y>20</y>
+=======
+      <widget class="QDateEdit" name="dateStart">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>30</y>
+         <width>110</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="dateTime">
+        <datetime>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+         <year>2013</year>
+         <month>1</month>
+         <day>1</day>
+        </datetime>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QDateEdit" name="dateEnd">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>70</y>
+         <width>110</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="dateTime">
+        <datetime>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+         <year>2013</year>
+         <month>1</month>
+         <day>1</day>
+        </datetime>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="semesterNameEdit">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>130</y>
+         <width>113</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="startDate">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>30</y>
+>>>>>>> feature/bresia_branch
          <width>62</width>
          <height>16</height>
         </rect>
        </property>
        <property name="text">
+<<<<<<< HEAD
         <string>Name</string>
        </property>
       </widget>
@@ -114,11 +193,65 @@
          <x>120</x>
          <y>140</y>
          <width>114</width>
+=======
+        <string>Start Date</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="endDate">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>70</y>
+         <width>62</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>End Date</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="semesterName">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>130</y>
+         <width>121</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Name of Semester</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="createButton">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>180</y>
+         <width>101</width>
+>>>>>>> feature/bresia_branch
          <height>32</height>
         </rect>
        </property>
        <property name="text">
+<<<<<<< HEAD
         <string>OK</string>
+=======
+        <string>Create</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="notificationSemester">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>240</y>
+         <width>281</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+>>>>>>> feature/bresia_branch
        </property>
       </widget>
      </widget>
