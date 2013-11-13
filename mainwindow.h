@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QDateTime>
+#include <QDialogButtonBox>
+#include <QAbstractButton>
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +24,9 @@ private slots:
     //void dateStart();
     //void dateEnd();
     //void nameSemesterEdit();
+    
+    void resetBox();
+    void okBox();
 
 private:
     Ui::MainWindow *ui;
