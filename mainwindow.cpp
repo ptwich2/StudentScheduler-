@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <QDateTime>
+#include <QDialogButtonBox>
+#include <QAbstractButton>
 using namespace std;
 
 
