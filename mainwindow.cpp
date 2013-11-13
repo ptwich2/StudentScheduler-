@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-=======
 #include <iostream>
 #include <QDateTime>
 using namespace std;
