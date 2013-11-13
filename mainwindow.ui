@@ -71,7 +71,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="addSemester">
       <property name="geometry">
@@ -215,8 +215,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>30</height>
+        <width>781</width>
+        <height>279</height>
        </rect>
       </property>
       <attribute name="label">
@@ -228,13 +228,160 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>100</width>
-        <height>30</height>
+        <width>781</width>
+        <height>279</height>
        </rect>
       </property>
       <attribute name="label">
        <string>Add New Holidays</string>
       </attribute>
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>91</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Holiday Name</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="holidayName">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>10</y>
+         <width>261</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>50</y>
+         <width>41</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Start:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>90</y>
+         <width>31</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>End:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>160</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Comments</string>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="holidayComments">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>160</y>
+         <width>351</width>
+         <height>91</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QDialogButtonBox" name="holidayChanges">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>250</y>
+         <width>164</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+       </property>
+       <property name="centerButtons">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QDateEdit" name="holidayStart">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>50</y>
+         <width>111</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="dateTime">
+        <datetime>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+         <year>2013</year>
+         <month>1</month>
+         <day>1</day>
+        </datetime>
+       </property>
+       <property name="minimumDateTime">
+        <datetime>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+         <year>1752</year>
+         <month>9</month>
+         <day>14</day>
+        </datetime>
+       </property>
+       <property name="displayFormat">
+        <string>M/d/yy</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QDateEdit" name="holidayEnd">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>90</y>
+         <width>110</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="dateTime">
+        <datetime>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+         <year>2013</year>
+         <month>1</month>
+         <day>1</day>
+        </datetime>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </widget>
    </widget>
