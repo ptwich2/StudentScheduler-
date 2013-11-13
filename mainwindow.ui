@@ -37,12 +37,32 @@
     </font>
    </property>
    <property name="currentIndex">
+<<<<<<< HEAD
+    <number>0</number>
+=======
     <number>1</number>
+>>>>>>> feature/bresia_branch
    </property>
    <widget class="QWidget" name="homeTab">
     <attribute name="title">
      <string>Home</string>
     </attribute>
+<<<<<<< HEAD
+    <widget class="QLabel" name="hiUser">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>501</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+=======
+>>>>>>> feature/bresia_branch
    </widget>
    <widget class="QWidget" name="addNew">
     <attribute name="title">
@@ -66,12 +86,23 @@
         <x>0</x>
         <y>0</y>
         <width>781</width>
+<<<<<<< HEAD
+        <height>270</height>
+=======
         <height>279</height>
+>>>>>>> feature/bresia_branch
        </rect>
       </property>
       <attribute name="label">
        <string>Add New Semester</string>
       </attribute>
+<<<<<<< HEAD
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+=======
       <widget class="QDateEdit" name="dateStart">
        <property name="geometry">
         <rect>
@@ -136,11 +167,33 @@
         <rect>
          <x>90</x>
          <y>30</y>
+>>>>>>> feature/bresia_branch
          <width>62</width>
          <height>16</height>
         </rect>
        </property>
        <property name="text">
+<<<<<<< HEAD
+        <string>Name</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="test111">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>201</width>
+         <height>21</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>140</y>
+         <width>114</width>
+=======
         <string>Start Date</string>
        </property>
       </widget>
@@ -176,10 +229,14 @@
          <x>210</x>
          <y>180</y>
          <width>101</width>
+>>>>>>> feature/bresia_branch
          <height>32</height>
         </rect>
        </property>
        <property name="text">
+<<<<<<< HEAD
+        <string>OK</string>
+=======
         <string>Create</string>
        </property>
       </widget>
@@ -194,6 +251,7 @@
        </property>
        <property name="text">
         <string/>
+>>>>>>> feature/bresia_branch
        </property>
       </widget>
      </widget>
