@@ -27,44 +27,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//name field to object
-
-/*
-void MainWindow::on_holidayStart_clicked()
-{
-    ui->startCalendar->show(); //on click display start calendar
-}
-
-//
-void MainWindow::on_holidayEnd_clicked()
-{
-    ui->endCalendar->show(); //on click display end calendar
-}
-*/
-
-//need calendar events start
-//need calendar events end
-
-/*
-//reset = all objects saved = null
-void MainWindow::QDialogButtonBox::Reset::on_clicked()
-{
-   //QDialogButtonBox::ResetRole needed to reset input fields?
-}
-*/
-
-//ok = retrieve objects and send to higher
-//void MainWindow::holidayChanges(QAbstractButton *button)
-//{
-//    if(ui->holidayChanges->buttonRole(button) == QDialogButtonBox::ResetRole)
-//    {
-//        ui->holidayName->clear();//setText("Hi");
-//    }
-//    //QString holidayName = ui->holidayName->text();
-//    //QString holidayComments = ui->holidayComments->text();
-//    //cout << holidayName;
-//    //cout << holidayComments;
-//}
 void MainWindow::okBox()
 {
     QString holidayNameContents = ui->holidayName->text();
