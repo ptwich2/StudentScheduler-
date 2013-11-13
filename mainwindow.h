@@ -18,7 +18,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_2_clicked();
     void on_createButton_click();
     //void dateStart();
     //void dateEnd();

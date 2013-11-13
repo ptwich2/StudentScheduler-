@@ -17,7 +17,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
+void MainWindow::setHiUserText(QString hiText){
+    ui->hiUser->setText(hiText);
+}
 /*
  * When user clicks on the "Create" button, it should
  * send the information to the server and then show the client
