@@ -14,11 +14,9 @@ class MainWindow : public QDialog
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void setHiUserText(QString hiText);
     ~MainWindow();
 
 private slots:
-    void on_pushButton_2_clicked();
     void on_createButton_click();
     //void dateStart();
     //void dateEnd();
