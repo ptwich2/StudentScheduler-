@@ -70,10 +70,16 @@ void MainWindow::okBox()
     QString holidayStartDate = ui->holidayStart->date().toString();
     QString holidayEndDate = ui->holidayEnd->date().toString();
 
+    qDebug() << holidayNameContents;
+    qDebug() << holidayStartDate;
     qDebug() << userID;
     MyNetwork *myPost = new MyNetwork;
+    myPost->setPost("userID",userID);
     myPost->setPost("action","addHoliday");
     myPost->setPost("holidayName", holidayNameContents);
+    myPost->setPost("holidayStartDate", holidayStartDate);
+    myPost->setPost("holidayEndDate",holidayEndDate);
+
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendHolidayName(MyNetwork *)));
     myPost->sendPost();
