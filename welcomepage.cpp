@@ -82,11 +82,13 @@ void WelcomePage::doThis1(MyNetwork *myPost){
     QJsonValue theFirstName = theInfoValueObject["firstName"];
     QJsonValue theLastName = theInfoValueObject["lastName"];
     QJsonValue theEmail = theInfoValueObject["email"];
+    QJsonValue theUserID = theInfoValueObject["userID"];
 
     qDebug() << theEmail.toString();
     if(theStatusValue.toString().compare("Good") == 0){
         this->hide();
         MainWindow mainWindow;
+        mainWindow.setUserID(theUserID.toString());
         mainWindow.setHiUserText("Hi! "+theFirstName.toString()+" "+theLastName.toString()+" <br /> "+
                                  "Your email is "+theEmail.toString()+" <br /> "+
                                  "Your username is "+theUsername.toString());
@@ -150,11 +152,13 @@ void WelcomePage::doThis2(MyNetwork *myPost){
     QJsonValue theFirstName = theInfoValueObject["firstName"];
     QJsonValue theLastName = theInfoValueObject["lastName"];
     QJsonValue theEmail = theInfoValueObject["email"];
+    QJsonValue theUserID = theInfoValueObject["userID"];
 
     qDebug() << theEmail.toString();
     if(theStatusValue.toString().compare("Good") == 0){
         this->hide();
         MainWindow mainWindow;
+        mainWindow.setUserID(theUserID.toString());
         mainWindow.setHiUserText("Congratulations! Your username is "+theUsername.toString()+" <br />"
                                   +" Your email is " + theEmail.toString());
         //mainWindow.showInfo(responsStr);

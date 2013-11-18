@@ -6,6 +6,7 @@
 #include <QAbstractButton>
 using namespace std;
 
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
@@ -50,12 +51,18 @@ void MainWindow::on_createButton_click()
 
 }
 
+void MainWindow::setUserID(QString u){
+    userID = u;
+}
+
 void MainWindow::okBox()
 {
     QString holidayNameContents = ui->holidayName->text();
     QString holidayCommentsContents = ui->holidayComments->toPlainText();
     QString holidayStartDate = ui->holidayStart->date().toString();
     QString holidayEndDate = ui->holidayEnd->date().toString();
+
+    qDebug() << userID;
 }
 
 void MainWindow::resetBox()
