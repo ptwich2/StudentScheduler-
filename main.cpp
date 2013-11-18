@@ -16,8 +16,20 @@ int main(int argc, char *argv[])
 //    val = file.readAll();
 //    file.close();
 //    qWarning() << val;
-//    QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
+//    QJsonDocument d = QJsonDocument::fromJson("{ "\
+//                                              "\"appDesc\": {" \
+//                                                 "\"description\": \"SomeDescription\"," \
+//                                                 "\"message\": \"SomeMessage\"" \
+//                                              "}," \
+//                                              "\"appName\": {" \
+//                                                 "\"description\": \"Home\"," \
+//                                                 "\"message\": \"Welcome\"," \
+//                                                 "\"imp\":[\"awesome\",\"best\",\"good\"]"\
+//                                              "}"\
+//                                              "}");
 //    QJsonObject sett2 = d.object();
+
+//    qWarning() << sett2;
 //    QJsonValue value = sett2.value(QString("appName"));
 //    qWarning() << value;
 //    QJsonObject item = value.toObject();

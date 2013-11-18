@@ -1,17 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <iostream>
+#include <QDateTime>
 #include <QDialogButtonBox>
 #include <QAbstractButton>
-#include <iostream>
-
 using namespace std;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
-
+    
     QPushButton *okButton = ui->holidayChanges->button(QDialogButtonBox::Ok);
     connect(okButton, SIGNAL(clicked()), this, SLOT(okBox()));
 
@@ -20,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -27,44 +31,29 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//name field to object
-
+void MainWindow::setHiUserText(QString hiText){
+    ui->hiUser->setText(hiText);
+}
 /*
-void MainWindow::on_holidayStart_clicked()
+ * When user clicks on the "Create" button, it should
+ * send the information to the server and then show the client
+ * a message saying, "Semester successfully created!"
+ *
+ * It should also print out a string that includes the information
+ * which the user will send to the server.
+ */
+void MainWindow::on_createSemester_clicked()
 {
-    ui->startCalendar->show(); //on click display start calendar
+    ui->notificationSemester->setText("Semester successfully created!");
+
+
+    //Print out the information that the user inputs
+    //cout << dateStart;
+    //cout << dateEnd;
+    //cout << nameSemesterEdit;
+
 }
 
-//
-void MainWindow::on_holidayEnd_clicked()
-{
-    ui->endCalendar->show(); //on click display end calendar
-}
-*/
-
-//need calendar events start
-//need calendar events end
-
-/*
-//reset = all objects saved = null
-void MainWindow::QDialogButtonBox::Reset::on_clicked()
-{
-   //QDialogButtonBox::ResetRole needed to reset input fields?
-}
-*/
-
-//ok = retrieve objects and send to higher
-//void MainWindow::holidayChanges(QAbstractButton *button)
-//{
-//    if(ui->holidayChanges->buttonRole(button) == QDialogButtonBox::ResetRole)
-//    {
-//        ui->holidayName->clear();//setText("Hi");
-//    }
-//    //QString holidayName = ui->holidayName->text();
-//    //QString holidayComments = ui->holidayComments->text();
-//    //cout << holidayName;
-//    //cout << holidayComments;
-//}
 void MainWindow::okBox()
 {
     QString holidayNameContents = ui->holidayName->text();
@@ -80,4 +69,6 @@ void MainWindow::resetBox()
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
 }
+
+
 
