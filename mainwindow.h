@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mynetwork.h"
 #include <QDialog>
 #include <QDateTime>
 #include <QDialogButtonBox>
@@ -29,6 +30,9 @@ private slots:
     
     void resetBox();
     void okBox();
+    void sendHolidayName(MyNetwork *myPost);
+
+    void on_holidayChanges_clicked(QAbstractButton *button);
 
 private:
     Ui::MainWindow *ui;
