@@ -1,19 +1,38 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "mynetwork.h"
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 #include <iostream>
 #include <QDateTime>
 #include <QDialogButtonBox>
 #include <QAbstractButton>
+<<<<<<< HEAD
 #include <QDebug>
 
-#include <QDebug>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QApplication>
 
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+=======
+
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QDebug>
+
+using namespace std;
+
+#include <QDebug>
+>>>>>>> develop
 
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
@@ -102,6 +121,14 @@ void MainWindow::okBox()
     QString holidayCommentsContents = ui->holidayComments->toPlainText();
     QString holidayStartDate = ui->holidayStart->date().toString();
     QString holidayEndDate = ui->holidayEnd->date().toString();
+}
+
+void MainWindow::resetBox()
+{
+    ui->holidayName->clear();
+    ui->holidayComments->clear();
+    ui->holidayStart->setDate(QDate::currentDate());
+    ui->holidayEnd->setDate(QDate::currentDate());
 }
 
 void MainWindow::setUserID(QString u){

@@ -32,6 +32,8 @@ private slots:
     void okBox();
     void sendHolidayName(MyNetwork *myPost);
 
+    void on_holidayChanges_clicked(QAbstractButton *button);
+
 private:
     Ui::MainWindow *ui;
 };
