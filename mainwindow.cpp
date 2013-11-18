@@ -77,6 +77,7 @@ void MainWindow::okBox()
     myPost->setPost("userID",userID);
     myPost->setPost("action","addHoliday");
     myPost->setPost("holidayName", holidayNameContents);
+    myPost->setPost("holidayComments", holidayCommentsContents);
     myPost->setPost("holidayStartDate", holidayStartDate);
     myPost->setPost("holidayEndDate",holidayEndDate);
 
@@ -98,9 +99,4 @@ void MainWindow::resetBox()
     ui->holidayComments->clear();
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
-}
-
-void MainWindow::on_holidayChanges_clicked(QAbstractButton *button)
-{
-
 }
