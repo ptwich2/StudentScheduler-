@@ -40,7 +40,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="homeTab">
     <attribute name="title">
@@ -175,8 +175,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>821</width>
-        <height>231</height>
+        <width>239</width>
+        <height>223</height>
        </rect>
       </property>
       <attribute name="label">
@@ -312,8 +312,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>771</width>
-        <height>236</height>
+        <width>228</width>
+        <height>96</height>
        </rect>
       </property>
       <attribute name="label">
@@ -366,8 +366,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>771</width>
-        <height>236</height>
+        <width>131</width>
+        <height>229</height>
        </rect>
       </property>
       <attribute name="label">
