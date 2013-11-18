@@ -3,6 +3,10 @@
 
 #include <QDialog>
 #include <QDateTime>
+#include <QDialogButtonBox>
+#include <QAbstractButton>
+
+#include "mynetwork.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,13 +18,16 @@ class MainWindow : public QDialog
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void setHiUserText(QString hiText);
     ~MainWindow();
 
 private slots:
-    void on_createButton_click();
-    //void dateStart();
-    //void dateEnd();
-    //void nameSemesterEdit();
+    void createButton();
+    void sendSemesterName(MyNetwork *myPost);
+    //void on_semesterChanges_clicked(QAbstractButton *button);
+    
+    void resetBox();
+    void okBox();
 
 private:
     Ui::MainWindow *ui;
