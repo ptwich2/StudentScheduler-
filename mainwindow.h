@@ -23,7 +23,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void createButton();
+    void on_createButton_clicked();
     void sendSemesterName(MyNetwork *myPost);
     //void on_semesterChanges_clicked(QAbstractButton *button);
 
