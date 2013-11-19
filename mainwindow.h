@@ -19,6 +19,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     void setHiUserText(QString hiText);
     void setUserID(QString u);
+
     QString userID;
     ~MainWindow();
 
@@ -31,8 +32,14 @@ private slots:
     void resetBox();
     void okBox();
     void sendHolidayName(MyNetwork *myPost);
-
+    void sendClassName(MyNetwork *myPost);
     void on_holidayChanges_clicked(QAbstractButton *button);
+
+    void on_createCourse_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_calculateGPA_clicked();
 
 private:
     Ui::MainWindow *ui;

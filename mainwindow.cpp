@@ -3,8 +3,10 @@
 #include "mynetwork.h"
 #include <iostream>
 #include <QDateTime>
+#include <QTime>
 #include <QDialogButtonBox>
 #include <QAbstractButton>
+#include <QCheckBox>
 
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -30,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
+
+
 }
 
 MainWindow::~MainWindow()
@@ -101,6 +105,81 @@ void MainWindow::resetBox()
 }
 
 void MainWindow::on_holidayChanges_clicked(QAbstractButton *button)
+{
+
+}
+
+void MainWindow::on_createCourse_clicked()
+{
+    ui->tabWidget->setCurrentIndex(1);
+    QString courseName = ui->courseName->text();
+    QString courseType = ui->courseType->currentText();
+    int monday =  ui->monday->isChecked();
+    int tuesday = ui->tuesday->isChecked();
+    int wednesday = ui->wednesday->isChecked();
+    int thursday = ui->thursday->isChecked();
+    int friday = ui->friday->isChecked();
+    int saturday =ui->saturday->isChecked();
+    int sunday = ui->sunday->isChecked();
+    QString startTime = ui->startTime->time().toString();
+    QString endTime = ui->endTime->time().toString();
+
+    qDebug() << courseName;
+    qDebug() << courseType;
+    qDebug() << saturday;
+    qDebug() << sunday;
+    qDebug() << startTime;
+    qDebug() << endTime;
+    qDebug() << userID;
+    MyNetwork *myPost = new MyNetwork;
+
+
+    myPost->setPost("userID",userID);
+    myPost->setPost("action","addCourse");
+    myPost->setPost("courseName", courseName);
+    myPost->setPost("courseType", courseType);
+    myPost->setPost("monday", QString::number(monday));
+    myPost->setPost("tuesday",QString::number(tuesday));
+    myPost->setPost("wednesday",QString::number(wednesday));
+    myPost->setPost("thursday",QString::number(thursday));
+    myPost->setPost("friday",QString::number(friday));
+    myPost->setPost("saturday",QString::number(saturday));
+    myPost->setPost("sunday",QString::number(sunday));
+    myPost->setPost("startTime",startTime);
+    myPost->setPost("endTime",endTime);
+
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendClassName(MyNetwork *)));
+    myPost->sendPost();
+
+    /*Once the information is sent to the server, reset the fields*/
+
+//    ui->courseName->clear();
+//    ui->courseType->setCurrentIndex(0);
+//    ui->monday->setCheckState(false);
+//    ui->tuesday->setCheckState(false);
+//    ui->wednesday->setCheckState(false);
+//    ui->thursday->setCheckState(false);
+//    ui->friday->setCheckState(false);
+//    ui->saturday->setCheckState(false);
+//    ui->sunday->setCheckState(false);
+//    ui->startTime->setTime(QTime::currentTime());
+//    ui->endTime->setTime(QTime::currentTime());
+
+}
+
+void MainWindow::sendClassName(MyNetwork *myPost)
+{
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonObject jsonObject = jsonResponse.object();
+    qDebug() << myPost->theResponse;
+}
+
+
+
+
+
+void MainWindow::on_calculateGPA_clicked()
 {
 
 }
