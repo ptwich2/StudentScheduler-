@@ -32,11 +32,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setUserID(QString u)
+{
+    userID = u;
 }
 
 void MainWindow::setHiUserText(QString hiText){
@@ -48,7 +54,7 @@ void MainWindow::setHiUserText(QString hiText){
  * authentication message, "Semester successfully created!"
  *
  */
-void MainWindow::createButton()
+void MainWindow::on_createButton_clicked()
 {
 
     //Declare UI as strings and then convert to text
@@ -58,14 +64,16 @@ void MainWindow::createButton()
 
     //Sends to the server
     MyNetwork *myPost = new MyNetwork;
+    myPost->setPost("userID", userID);
     myPost->setPost("action","addSemester");
     myPost->setPost("semesterName", semesterNameContents);
+    myPost->setPost("semesterStartDate", dateStart);
+    myPost->setPost("semesterEndDate", dateEnd);
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendSemesterName(MyNetwork *)));
     myPost->sendPost();
 
-
-}//end on_createButton_click
+}//end createSemesterButton
 
 /*
  * The information from the fields in the "Add new semester" form is sent to the server.
@@ -76,26 +84,26 @@ void MainWindow::sendSemesterName(MyNetwork *myPost)
     QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     qDebug() << myPost->theResponse;
-//    QJsonValue theStatusValue = jsonObject.value("status");
-//    QJsonValue theInfoValue = jsonObject.value("userInfo");
-//    QJsonObject theInfoValueObject = theInfoValue.toObject();
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
 
-//    //Declare value of the objects using our field names
-//    QJsonValue semesterStart = theInfoValueObject["semesterStartDate"];
-//    QJsonValue semesterEnd = theInfoValueObject["semesterEndDate"];
-//    QJsonValue semesterName1 = theInfoValueObject["semesterName"];
+    //Declare value of the objects using our field names
+    QJsonValue semesterStart = theInfoValueObject["semesterStartDate"];
+    QJsonValue semesterEnd = theInfoValueObject["semesterEndDate"];
+    QJsonValue semesterName1 = theInfoValueObject["semesterName"];
 
-//    //If the server confirms the information, then it sends back a message
-//    //Otherwise it sends an error message
-//    if(theStatusValue.toString().compare("Good") == 0)
-//    {
-//        this->hide();
-//        MainWindow mainWindow;
-//    }
-//    else
-//    {
-//        ui->notificationSemester->setText(theStatusValue.toString());
-//    }
+    //If the server confirms the information, then it sends back a message
+    //Otherwise it sends an error message
+    if(theStatusValue.toString().compare("Good") == 0)
+    {
+        //QString notificationSemester = ui->
+        //notificationSemester.setText("Semester successfully added!");
+    }
+    else
+    {
+        ui->notificationSemester->setText(theStatusValue.toString());
+    }
 
 }//end void MainWindow::sendSemesterName...
 
