@@ -1,19 +1,38 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "mynetwork.h"
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 #include <iostream>
 #include <QDateTime>
 #include <QDialogButtonBox>
 #include <QAbstractButton>
+<<<<<<< HEAD
 #include <QDebug>
 
-#include <QDebug>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QApplication>
 
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+=======
+
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QDebug>
+
+using namespace std;
+
+#include <QDebug>
+>>>>>>> develop
 
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
@@ -29,17 +48,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
-
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::setUserID(QString u)
-{
-    userID = u;
 }
 
 void MainWindow::setHiUserText(QString hiText){
@@ -51,7 +64,7 @@ void MainWindow::setHiUserText(QString hiText){
  * authentication message, "Semester successfully created!"
  *
  */
-void MainWindow::on_createButton_clicked()
+void MainWindow::createButton()
 {
 
     //Declare UI as strings and then convert to text
@@ -61,16 +74,14 @@ void MainWindow::on_createButton_clicked()
 
     //Sends to the server
     MyNetwork *myPost = new MyNetwork;
-    myPost->setPost("userID", userID);
     myPost->setPost("action","addSemester");
     myPost->setPost("semesterName", semesterNameContents);
-    myPost->setPost("semesterStartDate", dateStart);
-    myPost->setPost("semesterEndDate", dateEnd);
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendSemesterName(MyNetwork *)));
     myPost->sendPost();
 
-}//end createSemesterButton
+
+}//end on_createButton_click
 
 /*
  * The information from the fields in the "Add new semester" form is sent to the server.
@@ -81,29 +92,44 @@ void MainWindow::sendSemesterName(MyNetwork *myPost)
     QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     qDebug() << myPost->theResponse;
-    QJsonValue theStatusValue = jsonObject.value("status");
-    QJsonValue theInfoValue = jsonObject.value("userInfo");
-    QJsonObject theInfoValueObject = theInfoValue.toObject();
+//    QJsonValue theStatusValue = jsonObject.value("status");
+//    QJsonValue theInfoValue = jsonObject.value("userInfo");
+//    QJsonObject theInfoValueObject = theInfoValue.toObject();
 
-    //Declare value of the objects using our field names
-    QJsonValue semesterStart = theInfoValueObject["semesterStartDate"];
-    QJsonValue semesterEnd = theInfoValueObject["semesterEndDate"];
-    QJsonValue semesterName1 = theInfoValueObject["semesterName"];
+//    //Declare value of the objects using our field names
+//    QJsonValue semesterStart = theInfoValueObject["semesterStartDate"];
+//    QJsonValue semesterEnd = theInfoValueObject["semesterEndDate"];
+//    QJsonValue semesterName1 = theInfoValueObject["semesterName"];
 
-    //If the server confirms the information, then it sends back a message
-    //Otherwise it sends an error message
-    if(theStatusValue.toString().compare("Good") == 0)
-    {
-        //QString notificationSemester = ui->
-        //notificationSemester.setText("Semester successfully added!");
-    }
-    else
-    {
-        ui->notificationSemester->setText(theStatusValue.toString());
-    }
+//    //If the server confirms the information, then it sends back a message
+//    //Otherwise it sends an error message
+//    if(theStatusValue.toString().compare("Good") == 0)
+//    {
+//        this->hide();
+//        MainWindow mainWindow;
+//    }
+//    else
+//    {
+//        ui->notificationSemester->setText(theStatusValue.toString());
+//    }
 
 }//end void MainWindow::sendSemesterName...
 
+void MainWindow::okBox()
+{
+    QString holidayNameContents = ui->holidayName->text();
+    QString holidayCommentsContents = ui->holidayComments->toPlainText();
+    QString holidayStartDate = ui->holidayStart->date().toString();
+    QString holidayEndDate = ui->holidayEnd->date().toString();
+}
+
+void MainWindow::resetBox()
+{
+    ui->holidayName->clear();
+    ui->holidayComments->clear();
+    ui->holidayStart->setDate(QDate::currentDate());
+    ui->holidayEnd->setDate(QDate::currentDate());
+}
 
 void MainWindow::setUserID(QString u){
     userID = u;
@@ -125,7 +151,7 @@ void MainWindow::okBox()
     myPost->setPost("holidayName", holidayNameContents);
     myPost->setPost("holidayStartDate", holidayStartDate);
     myPost->setPost("holidayEndDate",holidayEndDate);
-    myPost->setPost("holidayComments",holidayCommentsContents);
+
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendHolidayName(MyNetwork *)));
     myPost->sendPost();
@@ -144,4 +170,9 @@ void MainWindow::resetBox()
     ui->holidayComments->clear();
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
+}
+
+void MainWindow::on_holidayChanges_clicked(QAbstractButton *button)
+{
+
 }
