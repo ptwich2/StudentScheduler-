@@ -23,11 +23,10 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_createButton_click();
-    //void dateStart();
-    //void dateEnd();
-    //void nameSemesterEdit();
-    
+    void createButton();
+    void sendSemesterName(MyNetwork *myPost);
+    //void on_semesterChanges_clicked(QAbstractButton *button);
+
     void resetBox();
     void okBox();
     void sendHolidayName(MyNetwork *myPost);

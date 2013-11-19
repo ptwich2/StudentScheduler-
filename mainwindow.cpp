@@ -96,13 +96,6 @@ void MainWindow::sendSemesterName(MyNetwork *myPost)
 
 }//end void MainWindow::sendSemesterName...
 
-void MainWindow::okBox()
-{
-    QString holidayNameContents = ui->holidayName->text();
-    QString holidayCommentsContents = ui->holidayComments->toPlainText();
-    QString holidayStartDate = ui->holidayStart->date().toString();
-    QString holidayEndDate = ui->holidayEnd->date().toString();
-}
 
 void MainWindow::setUserID(QString u){
     userID = u;
@@ -124,7 +117,7 @@ void MainWindow::okBox()
     myPost->setPost("holidayName", holidayNameContents);
     myPost->setPost("holidayStartDate", holidayStartDate);
     myPost->setPost("holidayEndDate",holidayEndDate);
-
+    myPost->setPost("holidayComments",holidayCommentsContents);
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendHolidayName(MyNetwork *)));
     myPost->sendPost();
@@ -143,9 +136,4 @@ void MainWindow::resetBox()
     ui->holidayComments->clear();
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
-}
-
-void MainWindow::on_holidayChanges_clicked(QAbstractButton *button)
-{
-
 }
