@@ -1,19 +1,38 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "mynetwork.h"
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 #include <iostream>
 #include <QDateTime>
 #include <QDialogButtonBox>
 #include <QAbstractButton>
+<<<<<<< HEAD
 #include <QDebug>
 
-#include <QDebug>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QApplication>
 
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+=======
+
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QDebug>
+
+using namespace std;
+
+#include <QDebug>
+>>>>>>> develop
 
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
@@ -96,6 +115,21 @@ void MainWindow::sendSemesterName(MyNetwork *myPost)
 
 }//end void MainWindow::sendSemesterName...
 
+void MainWindow::okBox()
+{
+    QString holidayNameContents = ui->holidayName->text();
+    QString holidayCommentsContents = ui->holidayComments->toPlainText();
+    QString holidayStartDate = ui->holidayStart->date().toString();
+    QString holidayEndDate = ui->holidayEnd->date().toString();
+}
+
+void MainWindow::resetBox()
+{
+    ui->holidayName->clear();
+    ui->holidayComments->clear();
+    ui->holidayStart->setDate(QDate::currentDate());
+    ui->holidayEnd->setDate(QDate::currentDate());
+}
 
 void MainWindow::setUserID(QString u){
     userID = u;
@@ -117,7 +151,7 @@ void MainWindow::okBox()
     myPost->setPost("holidayName", holidayNameContents);
     myPost->setPost("holidayStartDate", holidayStartDate);
     myPost->setPost("holidayEndDate",holidayEndDate);
-    myPost->setPost("holidayComments",holidayCommentsContents);
+
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendHolidayName(MyNetwork *)));
     myPost->sendPost();
@@ -136,4 +170,9 @@ void MainWindow::resetBox()
     ui->holidayComments->clear();
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
+}
+
+void MainWindow::on_holidayChanges_clicked(QAbstractButton *button)
+{
+
 }
