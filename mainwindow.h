@@ -24,14 +24,14 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_createButton_click();
-    //void dateStart();
-    //void dateEnd();
-    //void nameSemesterEdit();
-    
+    void on_createButton_clicked();
+    void sendSemesterName(MyNetwork *myPost);
+    //void on_semesterChanges_clicked(QAbstractButton *button);
+
     void resetBox();
     void okBox();
     void sendHolidayName(MyNetwork *myPost);
+<<<<<<< HEAD
     void sendClassName(MyNetwork *myPost);
     void on_holidayChanges_clicked(QAbstractButton *button);
 
@@ -42,6 +42,8 @@ private slots:
     void on_calculateGPA_clicked();
 
     void on_calendarWidget_activated(const QDate &date);
+=======
+>>>>>>> a98cab4d496820da8cd161e91a9608171486ca40
 
 private:
     Ui::MainWindow *ui;
