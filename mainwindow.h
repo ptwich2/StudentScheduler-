@@ -41,6 +41,8 @@ private slots:
 
     void on_calculateGPA_clicked();
 
+    void on_calendarWidget_activated(const QDate &date);
+
 private:
     Ui::MainWindow *ui;
 };

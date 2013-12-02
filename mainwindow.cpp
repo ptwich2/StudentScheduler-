@@ -181,5 +181,39 @@ void MainWindow::sendClassName(MyNetwork *myPost)
 
 void MainWindow::on_calculateGPA_clicked()
 {
+    ui->tabWidget->setCurrentIndex(2);
+    int gradeA = ui->gradeA->text().toInt();
+    int gradeB = ui->gradeB->text().toInt();
+    int gradeC = ui->gradeC->text().toInt();
+    int gradeD = ui->gradeD->text().toInt();
+    int gradeF = ui->gradeF->text().toInt();
+    float GPA = ((gradeA *4) + (gradeB*3) + (gradeC*2) + (gradeD * 1) + (gradeF * 0)) / (gradeA + gradeB + gradeC + gradeD + gradeF);
+
+
+
+    qDebug() << gradeA;
+
+    MyNetwork *myPost = new MyNetwork;
+
+
+//    myPost->setPost("userID",userID);
+//    myPost->setPost("action","calculateGPA");
+//    myPost->setPost("gradeA", gradeA);
+//    myPost->setPost("gradeB", gradeB);
+//    myPost ->setPost("gradeC", gradeC);
+//    myPost ->setPost("gradeD", gradeD);
+//    myPost ->setPost ("gradeF", gradeF);
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendGPA(MyNetwork *)));
+    myPost->sendPost();
 
 }
+
+//void MainWindow::sendGPA(MyNetwork *myPost)
+//{
+//    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+//    QJsonObject jsonObject = jsonResponse.object();
+//    qDebug() << myPost->theResponse;
+//}
+
+
