@@ -17,9 +17,10 @@ class MainWindow : public QDialog
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void setHiUserText(QString hiText);
+    void setHiUserText();
     void setUserID(QString u);
-
+    void setGlobalObject(QByteArray u);
+    QByteArray globalObjects;
     QString userID;
     ~MainWindow();
 
@@ -31,19 +32,14 @@ private slots:
     void resetBox();
     void okBox();
     void sendHolidayName(MyNetwork *myPost);
-<<<<<<< HEAD
+
     void sendClassName(MyNetwork *myPost);
     void on_holidayChanges_clicked(QAbstractButton *button);
 
     void on_createCourse_clicked();
 
-    void on_pushButton_2_clicked();
-
     void on_calculateGPA_clicked();
 
-    void on_calendarWidget_activated(const QDate &date);
-=======
->>>>>>> a98cab4d496820da8cd161e91a9608171486ca40
 
 private:
     Ui::MainWindow *ui;

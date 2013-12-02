@@ -31,10 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a98cab4d496820da8cd161e91a9608171486ca40
 }
 
 MainWindow::~MainWindow()
@@ -47,8 +43,27 @@ void MainWindow::setUserID(QString u)
     userID = u;
 }
 
-void MainWindow::setHiUserText(QString hiText){
-    ui->hiUser->setText(hiText);
+void MainWindow::setGlobalObject(QByteArray u)
+{
+    globalObjects = u;
+}
+
+void MainWindow::setHiUserText(){
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
+    QJsonObject jsonObject = jsonResponse.object();
+    qDebug() << "In main window.";
+    qDebug() << globalObjects;
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
+    QJsonValue theUsername = theInfoValueObject["username"];
+    QJsonValue theFirstName = theInfoValueObject["firstName"];
+    QJsonValue theLastName = theInfoValueObject["lastName"];
+    QJsonValue theEmail = theInfoValueObject["email"];
+
+    QString hiText = "Congratulations! Your username is "+theUsername.toString()+" <br />"
+                              +" Your email is " + theEmail.toString();
+    ui->profileMainText->setText(hiText);
 }
 /*
  * When user clicks on the "Create" button, it sends the
@@ -148,7 +163,6 @@ void MainWindow::resetBox()
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
 }
-<<<<<<< HEAD
 
 void MainWindow::on_holidayChanges_clicked(QAbstractButton *button)
 {
@@ -262,6 +276,3 @@ void MainWindow::on_calculateGPA_clicked()
 //    qDebug() << myPost->theResponse;
 //}
 
-
-=======
->>>>>>> a98cab4d496820da8cd161e91a9608171486ca40
