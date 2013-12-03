@@ -61,8 +61,16 @@ void MainWindow::setHiUserText(){
     QJsonValue theLastName = theInfoValueObject["lastName"];
     QJsonValue theEmail = theInfoValueObject["email"];
 
-    QString hiText = "Congratulations! Your username is "+theUsername.toString()+" <br />"
-                              +" Your email is " + theEmail.toString();
+    QString hiText = "<table>";
+    if(theFirstName.toString().count() > 1){
+        hiText += "<tr><td>First name:</td><td style=\"padding-left:10px;\">"+theFirstName.toString()+"</td></tr>";
+    }
+    if(theLastName.toString().count() > 1){
+        hiText += "<tr><td>Last name:</td><td style=\"padding-left:10px;\">"+theLastName.toString()+"</td></tr>";
+    }
+        hiText += "<tr><td>Username:</td><td style=\"padding-left:10px;\">"+theUsername.toString()+"</td></tr>"
+                  "<tr><td>Email:</td><td style=\"padding-left:10px;\">"+ theEmail.toString()+" (not verify)</td></tr>"
+                  "</table>";
     ui->profileMainText->setText(hiText);
 }
 /*
