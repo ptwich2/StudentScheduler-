@@ -1,11 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "mynetwork.h"
 #include <QDialog>
 #include <QDateTime>
 #include <QDialogButtonBox>
 #include <QAbstractButton>
+
+#include "mynetwork.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,10 +27,12 @@ private slots:
     void on_createButton_clicked();
     void sendSemesterName(MyNetwork *myPost);
     //void on_semesterChanges_clicked(QAbstractButton *button);
-
+    
     void resetBox();
     void okBox();
     void sendHolidayName(MyNetwork *myPost);
+
+    void on_eventCalendar_clicked(const QDate &date);
 
 private:
     Ui::MainWindow *ui;

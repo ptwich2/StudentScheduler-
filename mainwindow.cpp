@@ -8,7 +8,10 @@
 #include <QAbstractButton>
 #include <QDebug>
 
-#include <QDebug>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QApplication>
 
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -46,23 +49,18 @@ void MainWindow::setHiUserText(QString hiText){
     ui->hiUser->setText(hiText);
 }
 /*
- *When user clicks on the "Create" button, it sends the
- * information to the server
+ * When user clicks on the "Create" button, it sends the
+ * information to the server.
  */
 void MainWindow::on_createButton_clicked()
 {
 
-    //Declare UI as strings or text
+    //Declare UI as strings and then convert to text
     QString dateStart = ui->dateStart->date().toString();
     QString dateEnd = ui->dateEnd->date().toString();
     QString semesterNameContents = ui->semesterNameEdit->text();
 
-    //This will show the information sent to the server
-    qDebug() << dateStart;
-    qDebug() << dateEnd;
-    qDebug() << semesterNameContents;
-
-    //Send to the server
+    //Sends to the server
     MyNetwork *myPost = new MyNetwork;
     myPost->setPost("userID", userID);
     myPost->setPost("action","addSemester");
@@ -73,7 +71,7 @@ void MainWindow::on_createButton_clicked()
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendSemesterName(MyNetwork *)));
     myPost->sendPost();
 
-}//end void MainWindow::on_createButton_clicked()
+}//end on_createButton_clicked()
 
 /*
  * The information from the fields in the "Add new semester" form is sent to the server.
@@ -84,6 +82,26 @@ void MainWindow::sendSemesterName(MyNetwork *myPost)
     QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     qDebug() << myPost->theResponse;
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
+
+    //Declare value of the objects using our field names
+    QJsonValue semesterStart = theInfoValueObject["semesterStartDate"];
+    QJsonValue semesterEnd = theInfoValueObject["semesterEndDate"];
+    QJsonValue semesterName1 = theInfoValueObject["semesterName"];
+
+    //If the server confirms the information, then it sends back a message
+    //Otherwise it sends an error message
+    if(theStatusValue.toString().compare("Good") == 0)
+    {
+        //QString notificationSemester = ui->
+        //notificationSemester.setText("Semester successfully added!");
+    }
+    else
+    {
+        ui->notificationSemester->setText(theStatusValue.toString());
+    }
 
 }//end void MainWindow::sendSemesterName...
 
@@ -122,4 +140,34 @@ void MainWindow::resetBox()
     ui->holidayComments->clear();
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
+}
+
+/*
+ * When the user creates an event, it will show up on the calendar.
+ * When a specific day is clicked, the events will show up in the page
+ * adjacent to the calendar.
+ *
+ * Debug: Use addHoliday data to test before implementation of adding events
+ */
+void MainWindow::on_eventCalendar_clicked(const QDate &date)
+{
+
+    //ui->showEvent->setText("testing"); //sanity check for buttons
+
+    /*
+     * 1. Grab the information from the server. (requires global objects)
+     *      Specific field names to grab:
+     *          holidayName
+     *          holidayStartDate
+     *          holidayEndDate
+     *
+     * 2. Add information to calendar.
+     *      Compare dates to that of the calendar.
+     *      If they match, then "add" the dates.
+     *
+     * 3. Debug
+     */
+
+
+
 }
