@@ -6,6 +6,8 @@
 #include <QDateTime>
 #include <QTime>
 #include <QDialogButtonBox>
+#include <QPushButton>
+#include <QToolBox>
 #include <QAbstractButton>
 #include <QCheckBox>
 
@@ -21,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
-    
+
     QPushButton *okButton = ui->holidayChanges->button(QDialogButtonBox::Ok);
     connect(okButton, SIGNAL(clicked()), this, SLOT(okBox()));
 
@@ -47,6 +49,7 @@ void MainWindow::setGlobalObject(QByteArray u)
 {
     globalObjects = u;
 }
+
 
 void MainWindow::setHiUserText(){
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
@@ -81,12 +84,12 @@ void MainWindow::setHiUserText(){
  */
 void MainWindow::on_createButton_clicked()
 {
-    
+
     //Declare UI as strings and then convert to text
     QString dateStart = ui->dateStart->date().toString();
     QString dateEnd = ui->dateEnd->date().toString();
     QString semesterNameContents = ui->semesterNameEdit->text();
-    
+
     //Sends to the server
     MyNetwork *myPost = new MyNetwork;
     myPost->setPost("userID", userID);
@@ -106,7 +109,7 @@ void MainWindow::on_createButton_clicked()
  */
 void MainWindow::sendSemesterName(MyNetwork *myPost)
 {
-    
+
     QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     qDebug() << myPost->theResponse;
@@ -123,12 +126,15 @@ void MainWindow::sendSemesterName(MyNetwork *myPost)
     //Otherwise it sends an error message
     if(theStatusValue.toString().compare("Good") == 0)
     {
-        //QString notificationSemester = ui->
-        //notificationSemester.setText("Semester successfully added!");
+        //go to add classes
+        ui->tabWidget->setCurrentIndex(2);
     }
     else
     {
+        //error, stay on the same page
         ui->notificationSemester->setText(theStatusValue.toString());
+        ui->tabWidget->setCurrentIndex(1);
+
     }
 
 }//end void MainWindow::sendSemesterName...
@@ -162,6 +168,7 @@ void MainWindow::sendHolidayName(MyNetwork *myPost)
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     qDebug() << myPost->theResponse;
+
 }
 
 void MainWindow::resetBox()
@@ -172,14 +179,10 @@ void MainWindow::resetBox()
     ui->holidayEnd->setDate(QDate::currentDate());
 }
 
-void MainWindow::on_holidayChanges_clicked(QAbstractButton *button)
-{
-
-}
 
 void MainWindow::on_createCourse_clicked()
 {
-    ui->tabWidget->setCurrentIndex(1);
+   // ui->tabWidget->setCurrentIndex(1);
     QString courseName = ui->courseName->text();
     QString courseType = ui->courseType->currentText();
     int monday =  ui->monday->isChecked();
@@ -220,27 +223,72 @@ void MainWindow::on_createCourse_clicked()
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendClassName(MyNetwork *)));
     myPost->sendPost();
 
+
+    ui->tabWidget->setCurrentIndex(4);
+    ui->classEvents->setItemText(1, courseName);
     /*Once the information is sent to the server, reset the fields*/
 
-//    ui->courseName->clear();
-//    ui->courseType->setCurrentIndex(0);
-//    ui->monday->setCheckState(false);
-//    ui->tuesday->setCheckState(false);
-//    ui->wednesday->setCheckState(false);
-//    ui->thursday->setCheckState(false);
-//    ui->friday->setCheckState(false);
-//    ui->saturday->setCheckState(false);
-//    ui->sunday->setCheckState(false);
-//    ui->startTime->setTime(QTime::currentTime());
-//    ui->endTime->setTime(QTime::currentTime());
+    ui->courseName->clear();
+    ui->courseType->setCurrentIndex(0);
+    ui->monday->setChecked(false);
+    ui->tuesday->setChecked(false);
+    ui->wednesday->setChecked(false);
+    ui->thursday->setChecked(false);
+    ui->friday->setChecked(false);
+    ui->saturday->setChecked(false);
+    ui->sunday->setChecked(false);
+    ui->startTime->setTime(QTime::currentTime());
+    ui->endTime->setTime(QTime::currentTime());
+
+
 
 }
 
 void MainWindow::sendClassName(MyNetwork *myPost)
 {
-    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+//    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+//    QJsonObject jsonObject = jsonResponse.object();
+//    qDebug() << myPost->theResponse;
+
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     qDebug() << myPost->theResponse;
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
+
+    //Declare value of the objects using our field names
+
+
+    QJsonValue courseName = theInfoValueObject["courseName"];
+    QJsonValue courseType = theInfoValueObject["courseType"];
+    QJsonValue monday =  theInfoValueObject["monday"];
+    QJsonValue tuesday =theInfoValueObject["tuesday"];
+    QJsonValue wednesday = theInfoValueObject["wednesday"];
+    QJsonValue thursday = theInfoValueObject["thursday"];
+    QJsonValue friday = theInfoValueObject["friday"];
+    QJsonValue saturday = theInfoValueObject["saturday"];
+    QJsonValue sunday = theInfoValueObject["sunday"];
+    QJsonValue startTime = theInfoValueObject["startTime"];
+    QJsonValue endTime = theInfoValueObject["endTime"];
+
+
+
+    //If the server confirms the information, then it sends back a message
+    //Otherwise it sends an error message
+    if(theStatusValue.toString().compare("Good") == 0)
+    {
+        //course created, go to add events
+       ui->tabWidget->setCurrentIndex(3);
+    }
+    else
+    {
+        //error, stay on the same page
+        ui->notificationCreateCourse->setText(theStatusValue.toString());
+        ui->tabWidget->setCurrentIndex(2);
+    }
+
+
 }
 
 
@@ -249,38 +297,99 @@ void MainWindow::sendClassName(MyNetwork *myPost)
 
 void MainWindow::on_calculateGPA_clicked()
 {
-    ui->tabWidget->setCurrentIndex(2);
+
     int gradeA = ui->gradeA->text().toInt();
     int gradeB = ui->gradeB->text().toInt();
     int gradeC = ui->gradeC->text().toInt();
     int gradeD = ui->gradeD->text().toInt();
     int gradeF = ui->gradeF->text().toInt();
-    float GPA = ((gradeA *4) + (gradeB*3) + (gradeC*2) + (gradeD * 1) + (gradeF * 0)) / (gradeA + gradeB + gradeC + gradeD + gradeF);
+    int gradePoints = ((gradeA *4) + (gradeB*3) + (gradeC*2) + (gradeD * 1) + (gradeF * 0));
+    int totalPoints = gradeA+gradeB+gradeC+gradeD+gradeF;
 
 
-
-    qDebug() << gradeA;
+    float gpa = (gradePoints/totalPoints);
+    QString temp = QString::number(gpa, 'f', 2);
+    ui->gpa->setText(temp);
 
     MyNetwork *myPost = new MyNetwork;
 
-
-//    myPost->setPost("userID",userID);
-//    myPost->setPost("action","calculateGPA");
-//    myPost->setPost("gradeA", gradeA);
-//    myPost->setPost("gradeB", gradeB);
-//    myPost ->setPost("gradeC", gradeC);
-//    myPost ->setPost("gradeD", gradeD);
-//    myPost ->setPost ("gradeF", gradeF);
-
+    myPost->setPost("userID",userID);
+    myPost->setPost("action","calculateGPA");
+    myPost->setPost("gpa",temp);
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendGPA(MyNetwork *)));
+    myPost->sendPost();
+}
+
+void MainWindow::sendGPA(MyNetwork *myPost)
+{
+//    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+//    QJsonObject jsonObject = jsonResponse.object();
+//    qDebug() << myPost->theResponse;
+      QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
+      QJsonObject jsonObject = jsonResponse.object();
+      qDebug() << myPost->theResponse;
+      QJsonValue theStatusValue = jsonObject.value("status");
+      QJsonValue theInfoValue = jsonObject.value("userInfo");
+      QJsonObject theInfoValueObject = theInfoValue.toObject();
+
+      //Declare value of the objects using our field names
+      QJsonValue gpa = theInfoValueObject["gpa"];
+
+
+}
+
+
+void MainWindow::on_createEvent_clicked()
+{
+    QString eventName = ui->eventName->text();
+    QString eventStartTime = ui->eventStartTime->time().toString();
+    QString eventEndTime = ui->eventEndTime->time().toString();
+    QString eventNotificationTime = ui->eventNotificationTime->time().toString();
+    int sendNotification = ui->sendNotification->isChecked();
+
+    MyNetwork *myPost = new MyNetwork;
+    myPost->setPost("userID",userID);
+    myPost->setPost("action","calculateGPA");
+    myPost->setPost("eventName",eventName);
+    myPost->setPost("eventStartTime",eventStartTime);
+    myPost->setPost("eventEndTime",eventEndTime);
+    myPost->setPost("eventNotificationTime",eventStartTime);
+    myPost->setPost("sendNotification", QString::number(sendNotification));
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendEvent(MyNetwork *)));
     myPost->sendPost();
 
 }
 
-//void MainWindow::sendGPA(MyNetwork *myPost)
-//{
-//    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
-//    QJsonObject jsonObject = jsonResponse.object();
-//    qDebug() << myPost->theResponse;
-//}
+void MainWindow::sendEvent(MyNetwork *myPost)
+{
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonObject jsonObject = jsonResponse.object();
+    qDebug() << myPost->theResponse;
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
 
+    QJsonValue eventName = theInfoValueObject["eventName"];
+    QJsonValue eventStartTime = theInfoValueObject["eventStartTime"];
+    QJsonValue eventEndTime =  theInfoValueObject["eventEndTime"];
+    QJsonValue eventNotificationTime =theInfoValueObject["eventNotificationTime"];
+    QJsonValue sendNotification = theInfoValueObject["sendNotification"];
+
+
+    //If the server confirms the information, then it sends back a message
+    //Otherwise it sends an error message
+    if(theStatusValue.toString().compare("Good") == 0)
+    {
+//        //event created, go to next page
+           ui->tabWidget->setCurrentIndex(4);
+
+    }
+//    else
+    {
+//        //error, stay on the same page
+        ui->notificationCreateCourse->setText(theStatusValue.toString());
+        ui->tabWidget->setCurrentIndex(3);
+    }
+
+}

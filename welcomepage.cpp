@@ -73,11 +73,19 @@ void WelcomePage::on_pushButton_clicked()
 
 void WelcomePage::on_forgetPassword_clicked()
 {
-    ui->signInBox->hide();
-    ui->creditsBox->hide();
-    ui->createAnAccountBox->hide();
+//    ui->signInBox->hide();
+//    ui->creditsBox->hide();
+//    ui->createAnAccountBox->hide();
 
-    ui->forgetBox->show();
+//    ui->forgetBox->show();
+
+    MainWindow mainWindow;
+  //  mainWindow.setUserID(theUserID.toString());
+  //  mainWindow.setGlobalObject(myPost->theResponse);
+    mainWindow.setHiUserText();
+    mainWindow.show();
+    mainWindow.setFixedSize(mainWindow.size());
+    mainWindow.exec();
 }
 
 void WelcomePage::on_createAnAccount_clicked()

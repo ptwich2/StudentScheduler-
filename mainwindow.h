@@ -34,12 +34,17 @@ private slots:
     void sendHolidayName(MyNetwork *myPost);
 
     void sendClassName(MyNetwork *myPost);
+    void sendGPA(MyNetwork *myPost);
+
+    void sendEvent(MyNetwork *myPost);
     void on_holidayChanges_clicked(QAbstractButton *button);
 
     void on_createCourse_clicked();
 
     void on_calculateGPA_clicked();
+    void on_classFolder_clicked();
 
+    void on_createEvent_clicked();
 
 private:
     Ui::MainWindow *ui;
