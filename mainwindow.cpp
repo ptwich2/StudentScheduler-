@@ -1,19 +1,37 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "mynetwork.h"
+#include "event.h"
 
-<<<<<<< HEAD
-=======
 #include <iostream>
 #include <QDateTime>
-using namespace std;
+#include <QTime>
+#include <QDialogButtonBox>
+#include <QAbstractButton>
+#include <QCheckBox>
+
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QDebug>
 
 
->>>>>>> feature/bresia_branch
 MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
+    
+    QPushButton *okButton = ui->holidayChanges->button(QDialogButtonBox::Ok);
+    connect(okButton, SIGNAL(clicked()), this, SLOT(okBox()));
+
+    QPushButton *resetButton = ui->holidayChanges->button(QDialogButtonBox::Reset);
+    connect(resetButton, SIGNAL(clicked()), this, SLOT(resetBox()));
+
+    ui->holidayStart->setDate(QDate::currentDate());
+    ui->holidayEnd->setDate(QDate::currentDate());
+
 }
 
 MainWindow::~MainWindow()
@@ -21,31 +39,335 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-<<<<<<< HEAD
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::setUserID(QString u)
 {
-    ui->test111->setText("Hi");
+    userID = u;
 }
 
-void MainWindow::setHiUserText(QString hiText){
-    ui->hiUser->setText(hiText);
-=======
-/*
- * When user clicks on the "Create" button, it should
- * send the information to the server and then show the client
- * a message saying, "Semester successfully created!"
- *
- * It should also print out a string that includes the information
- * which the user will send to the server.
- */
-void MainWindow::on_createButton_click()
+void MainWindow::setGlobalObject(QByteArray u)
 {
-    ui->notificationSemester->setText("Semester successfully created!");
+    globalObjects = u;
+}
 
-    //Print out the information that the user inputs
-    //cout << dateStart;
-    //cout << dateEnd;
-    //cout << nameSemesterEdit;
+void MainWindow::setHiUserText(){
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
+    QJsonObject jsonObject = jsonResponse.object();
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
+    QJsonValue theUsername = theInfoValueObject["username"];
+    QJsonValue theFirstName = theInfoValueObject["firstName"];
+    QJsonValue theLastName = theInfoValueObject["lastName"];
+    QJsonValue theEmail = theInfoValueObject["email"];
 
->>>>>>> feature/bresia_branch
+    QString hiText = "<table>";
+    if(theFirstName.toString().count() > 1){
+        hiText += "<tr><td>First name:</td><td style=\"padding-left:10px;\">"+theFirstName.toString()+"</td></tr>";
+    }
+    if(theLastName.toString().count() > 1){
+        hiText += "<tr><td>Last name:</td><td style=\"padding-left:10px;\">"+theLastName.toString()+"</td></tr>";
+    }
+        hiText += "<tr><td>Username:</td><td style=\"padding-left:10px;\">"+theUsername.toString()+"</td></tr>"
+                  "<tr><td>Email:</td><td style=\"padding-left:10px;\">"+ theEmail.toString()+" (not verify)</td></tr>"
+                  "</table>";
+    ui->profileMainText->setText(hiText);
+}
+/*
+ * When user clicks on the "Create" button, it sends the
+ * information to the server and then prompts with an
+ * authentication message, "Semester successfully created!"
+ *
+ */
+void MainWindow::on_createButton_clicked()
+{
+    
+    //Declare UI as strings and then convert to text
+    QString dateStart = ui->dateStart->date().toString();
+    QString dateEnd = ui->dateEnd->date().toString();
+    QString semesterNameContents = ui->semesterNameEdit->text();
+    
+    //Sends to the server
+    MyNetwork *myPost = new MyNetwork;
+    myPost->setPost("userID", userID);
+    myPost->setPost("action","addSemester");
+    myPost->setPost("semesterName", semesterNameContents);
+    myPost->setPost("semesterStartDate", dateStart);
+    myPost->setPost("semesterEndDate", dateEnd);
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendSemesterName(MyNetwork *)));
+    myPost->sendPost();
+
+}//end createSemesterButton
+
+
+/*
+ * The information from the fields in the "Add new semester" form is sent to the server.
+ */
+void MainWindow::sendSemesterName(MyNetwork *myPost)
+{
+    
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonObject jsonObject = jsonResponse.object();
+    qDebug() << myPost->theResponse;
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
+
+    //Declare value of the objects using our field names
+    QJsonValue semesterStart = theInfoValueObject["semesterStartDate"];
+    QJsonValue semesterEnd = theInfoValueObject["semesterEndDate"];
+    QJsonValue semesterName1 = theInfoValueObject["semesterName"];
+
+    //If the server confirms the information, then it sends back a message
+    //Otherwise it sends an error message
+    if(theStatusValue.toString().compare("Good") == 0)
+    {
+        //QString notificationSemester = ui->
+        //notificationSemester.setText("Semester successfully added!");
+    }
+    else
+    {
+        ui->notificationSemester->setText(theStatusValue.toString());
+    }
+
+}//end void MainWindow::sendSemesterName...
+
+
+void MainWindow::okBox()
+{
+    QString holidayNameContents = ui->holidayName->text();
+    QString holidayCommentsContents = ui->holidayComments->toPlainText();
+    QString holidayStartDate = ui->holidayStart->date().toString();
+    QString holidayEndDate = ui->holidayEnd->date().toString();
+
+    qDebug() << holidayNameContents;
+    qDebug() << holidayStartDate;
+    qDebug() << userID;
+    MyNetwork *myPost = new MyNetwork;
+    myPost->setPost("userID",userID);
+    myPost->setPost("action","addHoliday");
+    myPost->setPost("holidayName", holidayNameContents);
+    myPost->setPost("holidayComments", holidayCommentsContents);
+    myPost->setPost("holidayStartDate", holidayStartDate);
+    myPost->setPost("holidayEndDate",holidayEndDate);
+    myPost->setPost("holidayComments",holidayCommentsContents);
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendHolidayName(MyNetwork *)));
+    myPost->sendPost();
+}
+
+void MainWindow::sendHolidayName(MyNetwork *myPost)
+{
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonObject jsonObject = jsonResponse.object();
+    qDebug() << myPost->theResponse;
+}
+
+void MainWindow::resetBox()
+{
+    ui->holidayName->clear();
+    ui->holidayComments->clear();
+    ui->holidayStart->setDate(QDate::currentDate());
+    ui->holidayEnd->setDate(QDate::currentDate());
+}
+
+void MainWindow::on_holidayChanges_clicked(QAbstractButton *button)
+{
+
+}
+
+void MainWindow::on_createCourse_clicked()
+{
+    ui->tabWidget->setCurrentIndex(1);
+    QString courseName = ui->courseName->text();
+    QString courseType = ui->courseType->currentText();
+    int monday =  ui->monday->isChecked();
+    int tuesday = ui->tuesday->isChecked();
+    int wednesday = ui->wednesday->isChecked();
+    int thursday = ui->thursday->isChecked();
+    int friday = ui->friday->isChecked();
+    int saturday =ui->saturday->isChecked();
+    int sunday = ui->sunday->isChecked();
+    QString startTime = ui->startTime->time().toString();
+    QString endTime = ui->endTime->time().toString();
+
+    qDebug() << courseName;
+    qDebug() << courseType;
+    qDebug() << saturday;
+    qDebug() << sunday;
+    qDebug() << startTime;
+    qDebug() << endTime;
+    qDebug() << userID;
+    MyNetwork *myPost = new MyNetwork;
+
+
+    myPost->setPost("userID",userID);
+    myPost->setPost("action","addCourse");
+    myPost->setPost("courseName", courseName);
+    myPost->setPost("courseType", courseType);
+    myPost->setPost("monday", QString::number(monday));
+    myPost->setPost("tuesday",QString::number(tuesday));
+    myPost->setPost("wednesday",QString::number(wednesday));
+    myPost->setPost("thursday",QString::number(thursday));
+    myPost->setPost("friday",QString::number(friday));
+    myPost->setPost("saturday",QString::number(saturday));
+    myPost->setPost("sunday",QString::number(sunday));
+    myPost->setPost("startTime",startTime);
+    myPost->setPost("endTime",endTime);
+
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendClassName(MyNetwork *)));
+    myPost->sendPost();
+
+
+
+    /*Once the information is sent to the server, reset the fields*/
+
+//    ui->courseName->clear();
+//    ui->courseType->setCurrentIndex(0);
+//    ui->monday->setCheckState(false);
+//    ui->tuesday->setCheckState(false);
+//    ui->wednesday->setCheckState(false);
+//    ui->thursday->setCheckState(false);
+//    ui->friday->setCheckState(false);
+//    ui->saturday->setCheckState(false);
+//    ui->sunday->setCheckState(false);
+//    ui->startTime->setTime(QTime::currentTime());
+//    ui->endTime->setTime(QTime::currentTime());
+
+}
+
+void MainWindow::sendClassName(MyNetwork *myPost)
+{
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonObject jsonObject = jsonResponse.object();
+    this->setGlobalObject(myPost->theResponse);
+}
+
+
+void MainWindow::on_calculateGPA_clicked()
+{
+    ui->tabWidget->setCurrentIndex(2);
+    int gradeA = ui->gradeA->text().toInt();
+    int gradeB = ui->gradeB->text().toInt();
+    int gradeC = ui->gradeC->text().toInt();
+    int gradeD = ui->gradeD->text().toInt();
+    int gradeF = ui->gradeF->text().toInt();
+    float GPA = ((gradeA *4) + (gradeB*3) + (gradeC*2) + (gradeD * 1) + (gradeF * 0)) / (gradeA + gradeB + gradeC + gradeD + gradeF);
+
+
+
+    qDebug() << gradeA;
+
+    MyNetwork *myPost = new MyNetwork;
+
+
+//    myPost->setPost("userID",userID);
+//    myPost->setPost("action","calculateGPA");
+//    myPost->setPost("gradeA", gradeA);
+//    myPost->setPost("gradeB", gradeB);
+//    myPost ->setPost("gradeC", gradeC);
+//    myPost ->setPost("gradeD", gradeD);
+//    myPost ->setPost ("gradeF", gradeF);
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendGPA(MyNetwork *)));
+    myPost->sendPost();
+
+}
+
+//void MainWindow::sendGPA(MyNetwork *myPost)
+//{
+//    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+//    QJsonObject jsonObject = jsonResponse.object();
+//    qDebug() << myPost->theResponse;
+//}
+
+
+void MainWindow::on_calendarWidget_clicked(const QDate &date)
+{
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
+    QJsonObject jsonObject = jsonResponse.object();
+
+    QJsonValue theInfoValue = jsonObject.value("class");
+    QJsonArray classes = theInfoValue.toArray();
+
+    int dayOfWeekNum = date.dayOfWeek();
+    QString output = "<h3>Your schedule for "+date.toString()+"</h3>";
+    foreach(QJsonValue theClass, classes)
+    {
+        QJsonObject theClassInfo = theClass.toObject();
+        QString className = theClassInfo["className"].toString();
+        QString classType = theClassInfo["courseType"].toString();
+        QString classID = theClassInfo["classID"].toString();
+        int monday = theClassInfo["monday"].toString().toInt();
+        int tuesday = theClassInfo["tuesday"].toString().toInt();
+        int wednesday = theClassInfo["wednesday"].toString().toInt();
+        int thursday = theClassInfo["thursday"].toString().toInt();
+        int friday = theClassInfo["friday"].toString().toInt();
+        int saturday = theClassInfo["saturday"].toString().toInt();
+        int sunday = theClassInfo["sunday"].toString().toInt();
+        QString startTime = theClassInfo["startTime"].toString();
+        QString endTime = theClassInfo["endTime"].toString();
+
+        QString outputLocal = "<a style=\"text-decoration:none; color:black;\" href=\""+classID+"\"><h4>"+className+"</h4>"
+                              "<table>"
+                                    "<tr><td>Type:</td><td style=\"padding-left:10px;\">"+classType+"</td></tr>"
+                                    "<tr><td>Start Time:</td><td style=\"padding-left:10px;\">"+startTime+"</td></tr>"
+                                    "<tr><td>End Time:</td><td style=\"padding-left:10px;\">"+endTime+"</td></tr>"
+                              "</table></a>";
+
+        switch(dayOfWeekNum){
+            case 1:
+            if(monday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 2:
+            if(tuesday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 3:
+            if(wednesday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 4:
+            if(thursday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 5:
+            if(friday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 6:
+            if(saturday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 7:
+            if(sunday == 1){
+                output+=outputLocal;
+            }
+            break;
+        }
+
+        ui->eventText->setText(output);
+    }
+
+}
+
+void MainWindow::on_eventText_linkActivated(const QString &link)
+{
+    Event event;
+    event.setClassID(link);
+    event.setUserID(userID);
+    event.exec();
+    qDebug() << link;
+}
+
+void MainWindow::on_eventText_linkHovered(const QString &link)
+{
+
 }

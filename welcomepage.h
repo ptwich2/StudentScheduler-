@@ -33,8 +33,7 @@ private slots:
 
     void on_password_returnPressed();
 
-    void doThis1(MyNetwork *myPost);
-    void doThis2(MyNetwork *myPost);
+    void enterMainWindow(MyNetwork *myPost);
     void on_submitInCreateAcc_clicked();
 
 private:

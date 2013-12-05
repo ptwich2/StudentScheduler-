@@ -1,11 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mynetwork.h"
 #include <QDialog>
-<<<<<<< HEAD
-=======
 #include <QDateTime>
->>>>>>> feature/bresia_branch
+#include <QDialogButtonBox>
+#include <QAbstractButton>
 
 namespace Ui {
 class MainWindow;
@@ -17,21 +17,35 @@ class MainWindow : public QDialog
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-<<<<<<< HEAD
-    void setHiUserText(QString hiText);
+    void setHiUserText();
+    void setUserID(QString u);
+    void setGlobalObject(QByteArray u);
+    QByteArray globalObjects;
+    QString userID;
     ~MainWindow();
 
 private slots:
-    void on_pushButton_2_clicked();
-=======
-    ~MainWindow();
+    void on_createButton_clicked();
+    void sendSemesterName(MyNetwork *myPost);
+    //void on_semesterChanges_clicked(QAbstractButton *button);
 
-private slots:
-    void on_createButton_click();
-    //void dateStart();
-    //void dateEnd();
-    //void nameSemesterEdit();
->>>>>>> feature/bresia_branch
+    void resetBox();
+    void okBox();
+    void sendHolidayName(MyNetwork *myPost);
+
+    void sendClassName(MyNetwork *myPost);
+    void on_holidayChanges_clicked(QAbstractButton *button);
+
+    void on_createCourse_clicked();
+
+    void on_calculateGPA_clicked();
+
+
+    void on_calendarWidget_clicked(const QDate &date);
+
+    void on_eventText_linkActivated(const QString &link);
+
+    void on_eventText_linkHovered(const QString &link);
 
 private:
     Ui::MainWindow *ui;
