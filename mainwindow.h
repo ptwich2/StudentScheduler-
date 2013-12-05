@@ -34,11 +34,12 @@ private slots:
     void sendHolidayName(MyNetwork *myPost);
 
     void sendClassName(MyNetwork *myPost);
-    void on_holidayChanges_clicked(QAbstractButton *button);
 
     void on_createCourse_clicked();
 
     void on_calculateGPA_clicked();
+
+    void on_eventCalendar_clicked(const QDate &date)
 
 
 private:
