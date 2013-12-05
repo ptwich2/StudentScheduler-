@@ -34,6 +34,7 @@ private slots:
     void sendHolidayName(MyNetwork *myPost);
 
     void sendClassName(MyNetwork *myPost);
+
     void sendGPA(MyNetwork *myPost);
 
     void sendEvent(MyNetwork *myPost);
@@ -44,7 +45,11 @@ private slots:
     void on_calculateGPA_clicked();
     void on_classFolder_clicked();
 
+
     void on_createEvent_clicked();
+
+    void on_eventCalendar_clicked(const QDate &date);
+
 
 private:
     Ui::MainWindow *ui;

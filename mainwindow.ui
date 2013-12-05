@@ -37,7 +37,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="homeTab">
     <attribute name="title">
@@ -166,8 +166,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>661</width>
-        <height>231</height>
+        <width>239</width>
+        <height>223</height>
        </rect>
       </property>
       <attribute name="label">
@@ -290,8 +290,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>701</width>
-        <height>236</height>
+        <width>228</width>
+        <height>78</height>
        </rect>
       </property>
       <attribute name="label">
@@ -341,8 +341,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>701</width>
-        <height>236</height>
+        <width>131</width>
+        <height>229</height>
        </rect>
       </property>
       <attribute name="label">
@@ -596,13 +596,13 @@
        <string/>
       </attribute>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="widget">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>621</width>
-        <height>241</height>
+        <width>98</width>
+        <height>28</height>
        </rect>
       </property>
       <attribute name="label">

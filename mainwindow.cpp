@@ -76,11 +76,10 @@ void MainWindow::setHiUserText(){
                   "</table>";
     ui->profileMainText->setText(hiText);
 }
+
 /*
  * When user clicks on the "Create" button, it sends the
- * information to the server and then prompts with an
- * authentication message, "Semester successfully created!"
- *
+ * information to the server.
  */
 void MainWindow::on_createButton_clicked()
 {
@@ -101,8 +100,7 @@ void MainWindow::on_createButton_clicked()
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendSemesterName(MyNetwork *)));
     myPost->sendPost();
 
-}//end createSemesterButton
-
+}//end on_createButton_clicked()
 
 /*
  * The information from the fields in the "Add new semester" form is sent to the server.
@@ -137,7 +135,7 @@ void MainWindow::sendSemesterName(MyNetwork *myPost)
 
     }
 
-}//end void MainWindow::sendSemesterName...
+}//end void MainWindow::sendSemesterName
 
 
 void MainWindow::okBox()
@@ -178,7 +176,6 @@ void MainWindow::resetBox()
     ui->holidayStart->setDate(QDate::currentDate());
     ui->holidayEnd->setDate(QDate::currentDate());
 }
-
 
 void MainWindow::on_createCourse_clicked()
 {
@@ -339,6 +336,7 @@ void MainWindow::sendGPA(MyNetwork *myPost)
 }
 
 
+
 void MainWindow::on_createEvent_clicked()
 {
     QString eventName = ui->eventName->text();
@@ -391,5 +389,33 @@ void MainWindow::sendEvent(MyNetwork *myPost)
         ui->notificationCreateCourse->setText(theStatusValue.toString());
         ui->tabWidget->setCurrentIndex(3);
     }
+
+}
+
+/*
+ * When the user creates an event, it will show up on the calendar.
+ * When a specific day is clicked, the events will show up in the page
+ * adjacent to the calendar.
+ *
+ * Debug: Use addHoliday data to test before implementation of adding events
+ */
+void MainWindow::on_eventCalendar_clicked(const QDate &date)
+{
+
+    //ui->showEvent->setText("testing"); //sanity check for buttons
+
+    /*
+     * 1. Grab the information from the server. (requires global variables)
+     *      Specific field names to grab:
+     *          holidayName
+     *          holidayStartDate
+     *          holidayEndDate
+     *
+     * 2. Add information to calendar.
+     *      Compare dates to that of the calendar.
+     *      If they match, then "add" the dates.
+     *
+     * 3. Debug
+     */
 
 }
