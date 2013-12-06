@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>506</height>
+    <width>762</width>
+    <height>429</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,19 +25,16 @@
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>861</width>
-     <height>461</height>
+     <x>10</x>
+     <y>10</y>
+     <width>701</width>
+     <height>411</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <pointsize>13</pointsize>
     </font>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
    </property>
    <property name="currentIndex">
     <number>0</number>
@@ -46,17 +43,14 @@
     <attribute name="title">
      <string>Home</string>
     </attribute>
-    <widget class="QLabel" name="hiUser">
+    <widget class="QCalendarWidget" name="calendarWidget">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>501</width>
-       <height>121</height>
+       <x>10</x>
+       <y>10</y>
+       <width>351</width>
+       <height>311</height>
       </rect>
-     </property>
-     <property name="text">
-      <string/>
      </property>
     </widget>
    </widget>
@@ -69,29 +63,26 @@
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>821</width>
+       <width>661</width>
        <height>301</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="addSemester">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>821</width>
+        <width>661</width>
         <height>231</height>
        </rect>
       </property>
       <attribute name="label">
        <string>Add New Semester</string>
       </attribute>
-      <layout class="QFormLayout" name="formLayout_3">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-       </property>
+      <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
         <widget class="QLabel" name="startDate">
          <property name="text">
@@ -154,17 +145,17 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QLabel" name="notificationSemester">
+       <item row="3" column="1">
+        <widget class="QPushButton" name="createButton">
          <property name="text">
-          <string/>
+          <string>Create</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QPushButton" name="createSemester">
+       <item row="4" column="0">
+        <widget class="QLabel" name="notificationSemester">
          <property name="text">
-          <string>Create</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -175,14 +166,14 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>239</width>
-        <height>223</height>
+        <width>661</width>
+        <height>231</height>
        </rect>
       </property>
       <attribute name="label">
        <string>Add New Holidays</string>
       </attribute>
-      <layout class="QFormLayout" name="formLayout_2">
+      <layout class="QFormLayout" name="formLayout_5">
        <item row="0" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
@@ -278,29 +269,16 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="courseTab">
+   <widget class="QWidget" name="addNewClass">
     <attribute name="title">
-     <string>Courses</string>
+     <string>Add New Class</string>
     </attribute>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>20</y>
-       <width>91</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
     <widget class="QToolBox" name="toolBox_2">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>20</y>
-       <width>771</width>
+       <x>10</x>
+       <y>10</y>
+       <width>701</width>
        <height>341</height>
       </rect>
      </property>
@@ -313,35 +291,32 @@
         <x>0</x>
         <y>0</y>
         <width>228</width>
-        <height>96</height>
+        <height>78</height>
        </rect>
       </property>
       <attribute name="label">
        <string>Course</string>
       </attribute>
-      <layout class="QFormLayout" name="formLayout_8">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-       </property>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_19">
+      <layout class="QFormLayout" name="formLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
          <property name="text">
           <string>Course Name</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="cName"/>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="courseName"/>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_20">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Couse Type</string>
+          <string>Course Type</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QComboBox" name="cType">
+       <item row="1" column="1">
+        <widget class="QComboBox" name="courseType">
          <item>
           <property name="text">
            <string>Lecture</string>
@@ -373,51 +348,51 @@
       <attribute name="label">
        <string>Days</string>
       </attribute>
-      <layout class="QFormLayout" name="formLayout_7">
+      <layout class="QFormLayout" name="formLayout_2">
        <item row="0" column="0">
-        <widget class="QCheckBox" name="mon">
+        <widget class="QCheckBox" name="monday">
          <property name="text">
           <string>Monday</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QCheckBox" name="tue">
+        <widget class="QCheckBox" name="tuesday">
          <property name="text">
           <string>Tuesday</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QCheckBox" name="wed">
+        <widget class="QCheckBox" name="wednesday">
          <property name="text">
           <string>Wednesday</string>
          </property>
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QCheckBox" name="thur">
+        <widget class="QCheckBox" name="thursday">
          <property name="text">
-          <string>Thursday</string>
+          <string>Thursdaty</string>
          </property>
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QCheckBox" name="fri">
+        <widget class="QCheckBox" name="friday">
          <property name="text">
           <string>Friday</string>
          </property>
         </widget>
        </item>
        <item row="5" column="0">
-        <widget class="QCheckBox" name="sat">
+        <widget class="QCheckBox" name="saturday">
          <property name="text">
           <string>Saturday</string>
          </property>
         </widget>
        </item>
        <item row="6" column="0">
-        <widget class="QCheckBox" name="sun">
+        <widget class="QCheckBox" name="sunday">
          <property name="text">
           <string>Sunday</string>
          </property>
@@ -430,92 +405,499 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>771</width>
+        <width>701</width>
         <height>236</height>
        </rect>
       </property>
       <attribute name="label">
        <string>Timings</string>
       </attribute>
-      <widget class="QTimeEdit" name="eTime">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>50</y>
-         <width>250</width>
-         <height>27</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTimeEdit" name="sTime">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>10</y>
-         <width>250</width>
-         <height>27</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_17">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>81</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Start Time</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_18">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>81</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>End Time</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="createCourse">
-       <property name="geometry">
-        <rect>
-         <x>350</x>
-         <y>150</y>
-         <width>250</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Create Course</string>
-       </property>
-      </widget>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Start Time</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QTimeEdit" name="startTime"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>End Time</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QTimeEdit" name="endTime"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="createCourse">
+         <property name="text">
+          <string>Create Course</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
+    </widget>
+    <widget class="QLabel" name="notificationCreateCourse">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>390</y>
+       <width>561</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Classes">
+    <attribute name="title">
+     <string>Classes</string>
+    </attribute>
+    <widget class="QCheckBox" name="sendNotification">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>161</y>
+       <width>173</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Send Notification at </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_25">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>72</y>
+       <width>173</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start Time</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="eventName">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>28</y>
+       <width>430</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_26">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>116</y>
+       <width>173</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>End Time</string>
+     </property>
+    </widget>
+    <widget class="QTimeEdit" name="eventStartTime">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>72</y>
+       <width>430</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_24">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>28</y>
+       <width>173</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Event Name</string>
+     </property>
+    </widget>
+    <widget class="QTimeEdit" name="eventEndTime">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>116</y>
+       <width>430</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="createEvent">
+     <property name="geometry">
+      <rect>
+       <x>21</x>
+       <y>204</y>
+       <width>173</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Create Event</string>
+     </property>
+    </widget>
+    <widget class="QTimeEdit" name="eventNotificationTime">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>160</y>
+       <width>430</width>
+       <height>27</height>
+      </rect>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tab">
     <attribute name="title">
-     <string>Communication</string>
+     <string>Events</string>
     </attribute>
-    <widget class="QWebView" name="webView">
+    <widget class="QToolBox" name="classEvents">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>20</y>
-       <width>441</width>
+       <x>9</x>
+       <y>36</y>
+       <width>621</width>
        <height>311</height>
       </rect>
      </property>
-     <property name="url">
-      <url>
-       <string>https://mail.google.com/intl/en/mail/help/about.html</string>
-      </url>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="page">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>621</width>
+        <height>241</height>
+       </rect>
+      </property>
+      <attribute name="label">
+       <string/>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="widget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>621</width>
+        <height>241</height>
+       </rect>
+      </property>
+      <attribute name="label">
+       <string/>
+      </attribute>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="label_27">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>94</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Class Events</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="GPA">
+    <attribute name="title">
+     <string>GPA Calculator</string>
+    </attribute>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>694</width>
+       <height>42</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>To use the GPA calculator, total the number of hours you received for each letter grade.
+For example, if you had three 3 hour courses of A you would enter 9 in the total hours column</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>57</y>
+       <width>52</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Grades</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>57</y>
+       <width>84</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Total Hours</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>85</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>A</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>118</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>B</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>151</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>C</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>184</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>D</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>217</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>F</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="gradeA">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>85</y>
+       <width>167</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="gradeB">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>118</y>
+       <width>167</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="gradeC">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>151</y>
+       <width>167</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="gradeD">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>184</y>
+       <width>167</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="gradeF">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>217</y>
+       <width>167</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="calculateGPA">
+     <property name="geometry">
+      <rect>
+       <x>67</x>
+       <y>250</y>
+       <width>112</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Calculate GPA</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>60</y>
+       <width>100</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Grade Weight</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>88</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>4</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_20">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>121</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_21">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>154</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>2</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_22">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>187</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_23">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>220</y>
+       <width>16</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>300</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Your GPA is:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="gpa">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>310</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
@@ -563,13 +945,6 @@
    </widget>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header>QtWebKitWidgets/QWebView</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

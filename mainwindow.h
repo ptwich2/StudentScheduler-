@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mynetwork.h"
 #include <QDialog>
 #include <QDateTime>
 #include <QDialogButtonBox>
@@ -16,25 +17,39 @@ class MainWindow : public QDialog
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void setHiUserText(QString hiText);
+    void setHiUserText();
+    void setUserID(QString u);
+    void setGlobalObject(QByteArray u);
+    QByteArray globalObjects;
+    QString userID;
     ~MainWindow();
 
 private slots:
-    void on_createButton_click();
-    //void dateStart();
-    //void dateEnd();
-    //void nameSemesterEdit();
-    
+    void on_createButton_clicked();
+    void sendSemesterName(MyNetwork *myPost);
+    //void on_semesterChanges_clicked(QAbstractButton *button);
+
     void resetBox();
     void okBox();
+    void sendHolidayName(MyNetwork *myPost);
 
-    void on_submit_clicked();
+    void sendClassName(MyNetwork *myPost);
 
-    void on_holidayChanges_customContextMenuRequested(const QPoint &pos);
+    void sendGPA(MyNetwork *myPost);
 
-    void on_createButton_clicked();
+    void sendEvent(MyNetwork *myPost);
+    void on_holidayChanges_clicked(QAbstractButton *button);
 
-    void on_createSemester_clicked();
+    void on_createCourse_clicked();
+
+    void on_calculateGPA_clicked();
+    void on_classFolder_clicked();
+
+
+    void on_createEvent_clicked();
+
+    void on_eventCalendar_clicked(const QDate &date);
+
 
 private:
     Ui::MainWindow *ui;

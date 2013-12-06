@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[10];
-    char stringdata[167];
+    QByteArrayData data[21];
+    char stringdata[309];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,21 +30,36 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10),
-QT_MOC_LITERAL(1, 11, 21),
-QT_MOC_LITERAL(2, 33, 0),
-QT_MOC_LITERAL(3, 34, 8),
-QT_MOC_LITERAL(4, 43, 5),
-QT_MOC_LITERAL(5, 49, 17),
-QT_MOC_LITERAL(6, 67, 44),
-QT_MOC_LITERAL(7, 112, 3),
-QT_MOC_LITERAL(8, 116, 23),
-QT_MOC_LITERAL(9, 140, 25)
+QT_MOC_LITERAL(1, 11, 23),
+QT_MOC_LITERAL(2, 35, 0),
+QT_MOC_LITERAL(3, 36, 16),
+QT_MOC_LITERAL(4, 53, 10),
+QT_MOC_LITERAL(5, 64, 6),
+QT_MOC_LITERAL(6, 71, 8),
+QT_MOC_LITERAL(7, 80, 5),
+QT_MOC_LITERAL(8, 86, 15),
+QT_MOC_LITERAL(9, 102, 13),
+QT_MOC_LITERAL(10, 116, 7),
+QT_MOC_LITERAL(11, 124, 9),
+QT_MOC_LITERAL(12, 134, 25),
+QT_MOC_LITERAL(13, 160, 16),
+QT_MOC_LITERAL(14, 177, 6),
+QT_MOC_LITERAL(15, 184, 23),
+QT_MOC_LITERAL(16, 208, 23),
+QT_MOC_LITERAL(17, 232, 22),
+QT_MOC_LITERAL(18, 255, 22),
+QT_MOC_LITERAL(19, 278, 24),
+QT_MOC_LITERAL(20, 303, 4)
     },
-    "MainWindow\0on_createButton_click\0\0"
-    "resetBox\0okBox\0on_submit_clicked\0"
-    "on_holidayChanges_customContextMenuRequested\0"
-    "pos\0on_createButton_clicked\0"
-    "on_createSemester_clicked\0"
+    "MainWindow\0on_createButton_clicked\0\0"
+    "sendSemesterName\0MyNetwork*\0myPost\0"
+    "resetBox\0okBox\0sendHolidayName\0"
+    "sendClassName\0sendGPA\0sendEvent\0"
+    "on_holidayChanges_clicked\0QAbstractButton*\0"
+    "button\0on_createCourse_clicked\0"
+    "on_calculateGPA_clicked\0on_classFolder_clicked\0"
+    "on_createEvent_clicked\0on_eventCalendar_clicked\0"
+    "date\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,7 +69,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -62,22 +77,36 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x08,
-       3,    0,   50,    2, 0x08,
-       4,    0,   51,    2, 0x08,
-       5,    0,   52,    2, 0x08,
-       6,    1,   53,    2, 0x08,
-       8,    0,   56,    2, 0x08,
-       9,    0,   57,    2, 0x08,
+       1,    0,   84,    2, 0x08,
+       3,    1,   85,    2, 0x08,
+       6,    0,   88,    2, 0x08,
+       7,    0,   89,    2, 0x08,
+       8,    1,   90,    2, 0x08,
+       9,    1,   93,    2, 0x08,
+      10,    1,   96,    2, 0x08,
+      11,    1,   99,    2, 0x08,
+      12,    1,  102,    2, 0x08,
+      15,    0,  105,    2, 0x08,
+      16,    0,  106,    2, 0x08,
+      17,    0,  107,    2, 0x08,
+      18,    0,  108,    2, 0x08,
+      19,    1,  109,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void, 0x80000000 | 13,   14,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QPoint,    7,
     QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QDate,   20,
 
        0        // eod
 };
@@ -87,14 +116,65 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-        case 0: _t->on_createButton_click(); break;
-        case 1: _t->resetBox(); break;
-        case 2: _t->okBox(); break;
-        case 3: _t->on_submit_clicked(); break;
-        case 4: _t->on_holidayChanges_customContextMenuRequested((*reinterpret_cast< const QPoint(*)>(_a[1]))); break;
-        case 5: _t->on_createButton_clicked(); break;
-        case 6: _t->on_createSemester_clicked(); break;
+        case 0: _t->on_createButton_clicked(); break;
+        case 1: _t->sendSemesterName((*reinterpret_cast< MyNetwork*(*)>(_a[1]))); break;
+        case 2: _t->resetBox(); break;
+        case 3: _t->okBox(); break;
+        case 4: _t->sendHolidayName((*reinterpret_cast< MyNetwork*(*)>(_a[1]))); break;
+        case 5: _t->sendClassName((*reinterpret_cast< MyNetwork*(*)>(_a[1]))); break;
+        case 6: _t->sendGPA((*reinterpret_cast< MyNetwork*(*)>(_a[1]))); break;
+        case 7: _t->sendEvent((*reinterpret_cast< MyNetwork*(*)>(_a[1]))); break;
+        case 10: _t->on_createCourse_clicked(); break;
+        case 11: _t->on_calculateGPA_clicked(); break;
+        case 12: _t->on_createEvent_clicked(); break;
+        case 13: _t->on_eventCalendar_clicked((*reinterpret_cast< const QDate(*)>(_a[1]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 1:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyNetwork* >(); break;
+            }
+            break;
+        case 4:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyNetwork* >(); break;
+            }
+            break;
+        case 5:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyNetwork* >(); break;
+            }
+            break;
+        case 6:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyNetwork* >(); break;
+            }
+            break;
+        case 7:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyNetwork* >(); break;
+            }
+            break;
+        case 8:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QAbstractButton* >(); break;
+            }
+            break;
         }
     }
 }
@@ -124,13 +204,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        if (_id < 14)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 14;
     }
     return _id;
 }

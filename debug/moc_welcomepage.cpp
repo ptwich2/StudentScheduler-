@@ -19,7 +19,7 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_WelcomePage_t {
-    QByteArrayData data[13];
+    QByteArrayData data[12];
     char stringdata[215];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
@@ -37,19 +37,17 @@ QT_MOC_LITERAL(4, 50, 21),
 QT_MOC_LITERAL(5, 72, 25),
 QT_MOC_LITERAL(6, 98, 26),
 QT_MOC_LITERAL(7, 125, 25),
-QT_MOC_LITERAL(8, 151, 7),
-QT_MOC_LITERAL(9, 159, 10),
-QT_MOC_LITERAL(10, 170, 6),
-QT_MOC_LITERAL(11, 177, 7),
-QT_MOC_LITERAL(12, 185, 28)
+QT_MOC_LITERAL(8, 151, 15),
+QT_MOC_LITERAL(9, 167, 10),
+QT_MOC_LITERAL(10, 178, 6),
+QT_MOC_LITERAL(11, 185, 28)
     },
     "WelcomePage\0on_credits_clicked\0\0"
     "on_signIn_clicked\0on_pushButton_clicked\0"
     "on_forgetPassword_clicked\0"
     "on_createAnAccount_clicked\0"
-    "on_password_returnPressed\0doThis1\0"
-    "MyNetwork*\0myPost\0doThis2\0"
-    "on_submitInCreateAcc_clicked\0"
+    "on_password_returnPressed\0enterMainWindow\0"
+    "MyNetwork*\0myPost\0on_submitInCreateAcc_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,7 +57,7 @@ static const uint qt_meta_data_WelcomePage[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -67,15 +65,14 @@ static const uint qt_meta_data_WelcomePage[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x08,
-       3,    0,   60,    2, 0x08,
-       4,    0,   61,    2, 0x08,
-       5,    0,   62,    2, 0x08,
-       6,    0,   63,    2, 0x08,
-       7,    0,   64,    2, 0x08,
-       8,    1,   65,    2, 0x08,
-      11,    1,   68,    2, 0x08,
-      12,    0,   71,    2, 0x08,
+       1,    0,   54,    2, 0x08,
+       3,    0,   55,    2, 0x08,
+       4,    0,   56,    2, 0x08,
+       5,    0,   57,    2, 0x08,
+       6,    0,   58,    2, 0x08,
+       7,    0,   59,    2, 0x08,
+       8,    1,   60,    2, 0x08,
+      11,    0,   63,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void,
@@ -84,7 +81,6 @@ static const uint qt_meta_data_WelcomePage[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 9,   10,
     QMetaType::Void, 0x80000000 | 9,   10,
     QMetaType::Void,
 
@@ -102,22 +98,14 @@ void WelcomePage::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 3: _t->on_forgetPassword_clicked(); break;
         case 4: _t->on_createAnAccount_clicked(); break;
         case 5: _t->on_password_returnPressed(); break;
-        case 6: _t->doThis1((*reinterpret_cast< MyNetwork*(*)>(_a[1]))); break;
-        case 7: _t->doThis2((*reinterpret_cast< MyNetwork*(*)>(_a[1]))); break;
-        case 8: _t->on_submitInCreateAcc_clicked(); break;
+        case 6: _t->enterMainWindow((*reinterpret_cast< MyNetwork*(*)>(_a[1]))); break;
+        case 7: _t->on_submitInCreateAcc_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
         case 6:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-            case 0:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyNetwork* >(); break;
-            }
-            break;
-        case 7:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -153,13 +141,13 @@ int WelcomePage::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 8;
     }
     return _id;
 }

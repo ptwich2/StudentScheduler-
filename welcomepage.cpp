@@ -66,38 +66,10 @@ void WelcomePage::on_pushButton_clicked()
     myPost->setPost("username",username);
     myPost->setPost("password",password);
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(doThis1(MyNetwork *)));
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(enterMainWindow(MyNetwork *)));
     myPost->sendPost();
 }
 
-void WelcomePage::doThis1(MyNetwork *myPost){
-
-    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
-    QJsonObject jsonObject = jsonResponse.object();
-    qDebug() << myPost->theResponse;
-    QJsonValue theStatusValue = jsonObject.value("status");
-    QJsonValue theInfoValue = jsonObject.value("userInfo");
-    QJsonObject theInfoValueObject = theInfoValue.toObject();
-    QJsonValue theUsername = theInfoValueObject["username"];
-    QJsonValue theFirstName = theInfoValueObject["firstName"];
-    QJsonValue theLastName = theInfoValueObject["lastName"];
-    QJsonValue theEmail = theInfoValueObject["email"];
-
-    qDebug() << theEmail.toString();
-    if(theStatusValue.toString().compare("Good") == 0){
-        this->hide();
-        MainWindow mainWindow;
-        mainWindow.setHiUserText("Hi! "+theFirstName.toString()+" "+theLastName.toString()+" <br /> "+
-                                 "Your email is "+theEmail.toString()+" <br /> "+
-                                 "Your username is "+theUsername.toString());
-        //mainWindow.showInfo(responsStr);
-        mainWindow.show();
-        mainWindow.setFixedSize(mainWindow.size());
-        mainWindow.exec();
-    }else{
-        ui->Notifications->setText(theStatusValue.toString());
-    }
-}
 
 void WelcomePage::on_forgetPassword_clicked()
 {
@@ -142,30 +114,25 @@ void WelcomePage::on_submitInCreateAcc_clicked()
     myPost->setPost("password",password);
     myPost->setPost("email",email);
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(doThis2(MyNetwork *)));
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(enterMainWindow(MyNetwork *)));
     myPost->sendPost();
 }
 
-void WelcomePage::doThis2(MyNetwork *myPost){
+void WelcomePage::enterMainWindow(MyNetwork *myPost){
 
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
-    qDebug() << myPost->theResponse;
     QJsonValue theStatusValue = jsonObject.value("status");
     QJsonValue theInfoValue = jsonObject.value("userInfo");
     QJsonObject theInfoValueObject = theInfoValue.toObject();
-    QJsonValue theUsername = theInfoValueObject["username"];
-    QJsonValue theFirstName = theInfoValueObject["firstName"];
-    QJsonValue theLastName = theInfoValueObject["lastName"];
-    QJsonValue theEmail = theInfoValueObject["email"];
+    QJsonValue theUserID = theInfoValueObject["userID"];
 
-    qDebug() << theEmail.toString();
     if(theStatusValue.toString().compare("Good") == 0){
         this->hide();
         MainWindow mainWindow;
-        mainWindow.setHiUserText("Congratulations! Your username is "+theUsername.toString()+" <br />"
-                                  +" Your email is " + theEmail.toString());
-        //mainWindow.showInfo(responsStr);
+        mainWindow.setUserID(theUserID.toString());
+        mainWindow.setGlobalObject(myPost->theResponse);
+        mainWindow.setHiUserText();
         mainWindow.show();
         mainWindow.setFixedSize(mainWindow.size());
         mainWindow.exec();
