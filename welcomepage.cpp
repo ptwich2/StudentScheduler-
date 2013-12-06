@@ -40,10 +40,16 @@ void WelcomePage::on_credits_clicked()
     ui->signInBox->hide();
     ui->forgetBox->hide();
     ui->createAnAccountBox->hide();
+    ui->Notifications->setText("");
 
     ui->creditsBox->show();
 
-    ui->creditsBox->setText("CS 340 Project Fall 2013<br/><br/><br/>Instructor:<br/> Luc Renambot <br/><br/><br/>Team Members:<br/>Bresia Prudente<br/>Saleha Amreen<br/>Andrey Melikhov<br/>Pongsit Twichpongtorn");
+    ui->creditsBox->setText("CS 340 Project Fall 2013<br/><br/>"\
+                            "Instructor: Luc Renambot<br/>"
+                            "TA: Kaiser Newaj Asif<br/><br/>"
+                            "Team Members:<br/>"
+                            "Bresia Prudente<br/>Saleha Amreen<br/>"
+                            "Andrey Melikhov<br/>Pongsit Twichpongtorn");
 }
 
 void WelcomePage::on_signIn_clicked()
@@ -51,6 +57,7 @@ void WelcomePage::on_signIn_clicked()
     ui->creditsBox->hide();
     ui->forgetBox->hide();
     ui->createAnAccountBox->hide();
+    ui->Notifications->setText("");
 
     ui->signInBox->show();
 }
@@ -73,19 +80,27 @@ void WelcomePage::on_pushButton_clicked()
 
 void WelcomePage::on_forgetPassword_clicked()
 {
-//    ui->signInBox->hide();
-//    ui->creditsBox->hide();
-//    ui->createAnAccountBox->hide();
+// <<<<<<< HEAD
+// //    ui->signInBox->hide();
+// //    ui->creditsBox->hide();
+// //    ui->createAnAccountBox->hide();
+// 
+// //    ui->forgetBox->show();
+// 
+//     MainWindow mainWindow;
+//   //  mainWindow.setUserID(theUserID.toString());
+//   //  mainWindow.setGlobalObject(myPost->theResponse);
+//     mainWindow.setHiUserText();
+//     mainWindow.show();
+//     mainWindow.setFixedSize(mainWindow.size());
+//     mainWindow.exec();
+// =======
+    ui->signInBox->hide();
+    ui->creditsBox->hide();
+    ui->createAnAccountBox->hide();
+    ui->Notifications->setText("");
 
-//    ui->forgetBox->show();
-
-    MainWindow mainWindow;
-  //  mainWindow.setUserID(theUserID.toString());
-  //  mainWindow.setGlobalObject(myPost->theResponse);
-    mainWindow.setHiUserText();
-    mainWindow.show();
-    mainWindow.setFixedSize(mainWindow.size());
-    mainWindow.exec();
+    ui->forgetBox->show();
 }
 
 void WelcomePage::on_createAnAccount_clicked()
@@ -93,6 +108,7 @@ void WelcomePage::on_createAnAccount_clicked()
     ui->signInBox->hide();
     ui->creditsBox->hide();
     ui->forgetBox->hide();
+    ui->Notifications->setText("");
 
     ui->createAnAccountBox->show();
 }
@@ -126,6 +142,7 @@ void WelcomePage::enterMainWindow(MyNetwork *myPost){
     QJsonValue theInfoValue = jsonObject.value("userInfo");
     QJsonObject theInfoValueObject = theInfoValue.toObject();
     QJsonValue theUserID = theInfoValueObject["userID"];
+    qDebug() << jsonObject;
 
     if(theStatusValue.toString().compare("Good") == 0){
         this->hide();
@@ -137,6 +154,10 @@ void WelcomePage::enterMainWindow(MyNetwork *myPost){
         mainWindow.setFixedSize(mainWindow.size());
         mainWindow.exec();
     }else{
-        ui->Notifications->setText(theStatusValue.toString());
+        if(theStatusValue.toString().compare("") != 0){
+            ui->Notifications->setText(theStatusValue.toString());
+        }else{
+            ui->Notifications->setText("The server is not available.");
+        }
     }
 }
