@@ -93,44 +93,10 @@ void MainWindow::on_createButton_clicked()
     myPost->setPost("semesterStartDate", dateStart);
     myPost->setPost("semesterEndDate", dateEnd);
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendSemesterName(MyNetwork *)));
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
 
 }//end createSemesterButton
-
-
-/*
- * The information from the fields in the "Add new semester" form is sent to the server.
- */
-void MainWindow::sendSemesterName(MyNetwork *myPost)
-{
-    
-    QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
-    QJsonObject jsonObject = jsonResponse.object();
-    qDebug() << myPost->theResponse;
-    QJsonValue theStatusValue = jsonObject.value("status");
-    QJsonValue theInfoValue = jsonObject.value("userInfo");
-    QJsonObject theInfoValueObject = theInfoValue.toObject();
-
-    //Declare value of the objects using our field names
-    QJsonValue semesterStart = theInfoValueObject["semesterStartDate"];
-    QJsonValue semesterEnd = theInfoValueObject["semesterEndDate"];
-    QJsonValue semesterName1 = theInfoValueObject["semesterName"];
-
-    //If the server confirms the information, then it sends back a message
-    //Otherwise it sends an error message
-    if(theStatusValue.toString().compare("Good") == 0)
-    {
-        //QString notificationSemester = ui->
-        //notificationSemester.setText("Semester successfully added!");
-    }
-    else
-    {
-        ui->notificationSemester->setText(theStatusValue.toString());
-    }
-
-}//end void MainWindow::sendSemesterName...
-
 
 void MainWindow::okBox()
 {
@@ -151,15 +117,8 @@ void MainWindow::okBox()
     myPost->setPost("holidayEndDate",holidayEndDate);
     myPost->setPost("holidayComments",holidayCommentsContents);
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendHolidayName(MyNetwork *)));
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
-}
-
-void MainWindow::sendHolidayName(MyNetwork *myPost)
-{
-    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
-    QJsonObject jsonObject = jsonResponse.object();
-    qDebug() << myPost->theResponse;
 }
 
 void MainWindow::resetBox()
@@ -215,7 +174,7 @@ void MainWindow::on_createCourse_clicked()
     myPost->setPost("endTime",endTime);
 
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendClassName(MyNetwork *)));
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
 
 
@@ -236,11 +195,12 @@ void MainWindow::on_createCourse_clicked()
 
 }
 
-void MainWindow::sendClassName(MyNetwork *myPost)
+void MainWindow::updateGlobalObject(MyNetwork *myPost)
 {
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     this->setGlobalObject(myPost->theResponse);
+    qDebug() << globalObjects;
 }
 
 
@@ -269,18 +229,10 @@ void MainWindow::on_calculateGPA_clicked()
 //    myPost ->setPost("gradeD", gradeD);
 //    myPost ->setPost ("gradeF", gradeF);
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(sendGPA(MyNetwork *)));
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
 
 }
-
-//void MainWindow::sendGPA(MyNetwork *myPost)
-//{
-//    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
-//    QJsonObject jsonObject = jsonResponse.object();
-//    qDebug() << myPost->theResponse;
-//}
-
 
 void MainWindow::on_calendarWidget_clicked(const QDate &date)
 {

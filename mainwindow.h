@@ -26,14 +26,11 @@ public:
 
 private slots:
     void on_createButton_clicked();
-    void sendSemesterName(MyNetwork *myPost);
-    //void on_semesterChanges_clicked(QAbstractButton *button);
 
     void resetBox();
     void okBox();
-    void sendHolidayName(MyNetwork *myPost);
 
-    void sendClassName(MyNetwork *myPost);
+    void updateGlobalObject(MyNetwork *myPost);
     void on_holidayChanges_clicked(QAbstractButton *button);
 
     void on_createCourse_clicked();

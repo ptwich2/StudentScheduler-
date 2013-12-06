@@ -25,7 +25,7 @@ void MyNetwork::sendPost()
 {
     QUrl url("http://webservices.pongsit.com/cs340/index.php");
     QNetworkRequest request = QNetworkRequest(url);
-    //request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.2 Safari/537.36");
     QNetworkAccessManager * TheNetworkManager = new QNetworkAccessManager(this);
     connect(TheNetworkManager, SIGNAL(finished(QNetworkReply*)),this, SLOT(setResponse(QNetworkReply *)));
