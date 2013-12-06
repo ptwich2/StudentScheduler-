@@ -18,15 +18,18 @@ SOURCES += main.cpp\
     welcomepage.cpp \
     mainwindow.cpp \
     mynetwork.cpp \
-    event.cpp
+    event.cpp \
+    confirmation.cpp
 
 HEADERS  += home.h \
     welcomepage.h \
     mainwindow.h \
     mynetwork.h \
-    event.h
+    event.h \
+    confirmation.h
 
 FORMS    += home.ui \
     welcomepage.ui \
     mainwindow.ui \
-    event.ui
+    event.ui \
+    confirmation.ui

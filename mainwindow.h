@@ -20,6 +20,7 @@ public:
     void setHiUserText();
     void setUserID(QString u);
     void setGlobalObject(QByteArray u);
+    void confirmationWindow(int i);
     QByteArray globalObjects;
     QString userID;
     ~MainWindow();
@@ -43,6 +44,8 @@ private slots:
     void on_eventText_linkActivated(const QString &link);
 
     void on_eventText_linkHovered(const QString &link);
+
+    void colorCodeCalendar();
 
 private:
     Ui::MainWindow *ui;

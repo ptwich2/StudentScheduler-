@@ -2,6 +2,7 @@
 #include "ui_welcomepage.h"
 #include "mainwindow.h"
 #include "mynetwork.h"
+#include "confirmation.h"
 
 #include <iostream>
 #include <string>
@@ -117,6 +118,12 @@ void WelcomePage::on_submitInCreateAcc_clicked()
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(enterMainWindow(MyNetwork *)));
     myPost->sendPost();
+
+    Confirmation confirmation;
+    confirmation.createdAccount();
+    confirmation.show();
+    confirmation.raise();
+    confirmation.exec();
 }
 
 void WelcomePage::enterMainWindow(MyNetwork *myPost){

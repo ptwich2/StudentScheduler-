@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "mynetwork.h"
 #include "event.h"
+#include "confirmation.h"
 
 #include <iostream>
 #include <QDateTime>
@@ -15,6 +16,8 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QDebug>
+#include <QtGui/QTextCharFormat>
+#include <QtGui/QTextCharFormat>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -96,6 +99,7 @@ void MainWindow::on_createButton_clicked()
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
 
+    MainWindow::confirmationWindow(1);
 }//end createSemesterButton
 
 void MainWindow::okBox()
@@ -119,6 +123,9 @@ void MainWindow::okBox()
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
+
+    MainWindow::confirmationWindow(2);
+    MainWindow::colorCodeCalendar();
 }
 
 void MainWindow::resetBox()
@@ -177,7 +184,7 @@ void MainWindow::on_createCourse_clicked()
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
 
-
+    MainWindow::confirmationWindow(3);
 
     /*Once the information is sent to the server, reset the fields*/
 
@@ -216,7 +223,7 @@ void MainWindow::on_calculateGPA_clicked()
 
 
 
-    qDebug() << gradeA;
+    qDebug() << GPA;
 
     MyNetwork *myPost = new MyNetwork;
 
@@ -322,4 +329,64 @@ void MainWindow::on_eventText_linkActivated(const QString &link)
 void MainWindow::on_eventText_linkHovered(const QString &link)
 {
 
+}
+
+void MainWindow::confirmationWindow(int i)
+{
+    Confirmation confirmation;
+
+    switch(i)
+    {
+        case 1:
+            confirmation.createdSemester();
+            confirmation.show();
+            confirmation.raise();
+            confirmation.exec();
+            break;
+        case 2:
+            confirmation.createdHoliday();
+            confirmation.show();
+            confirmation.raise();
+            confirmation.exec();
+            break;
+        case 3:
+            confirmation.createdClass();
+            confirmation.show();
+            confirmation.raise();
+            confirmation.exec();
+            break;
+        case 4:
+            confirmation.createdEvent();
+            confirmation.show();
+            confirmation.raise();
+            confirmation.exec();
+            break;
+        default:
+            break;
+     }
+}
+
+void MainWindow::colorCodeCalendar()
+{
+//    QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
+//    QJsonObject jsonObject = jsonResponse.object();
+
+//    QJsonValue theInfoValue = jsonObject.value("holidayStartDate");
+//    QJsonArray holidays = theInfoValue.toArray();
+
+
+    QStringList startDate;
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
+    QJsonObject jsonObject = jsonResponse.object();
+    QJsonArray holidays = jsonObject["holidays"].toArray();
+
+
+    foreach(const QJsonValue & holiday, holidays)
+    {
+        QBrush brush;
+        brush.setColor(Qt::green);
+        QTextCharFormat cf = ui->calendarWidget->dateTextFormat( QDate::currentDate() );
+        cf.setBackground(brush);
+        ui->calendarWidget->setDateTextFormat( QDate::currentDate(), cf);
+    }
 }
