@@ -2,6 +2,7 @@
 #include "ui_welcomepage.h"
 #include "mainwindow.h"
 #include "mynetwork.h"
+#include "confirmation.h"
 
 #include <iostream>
 #include <string>
@@ -40,10 +41,16 @@ void WelcomePage::on_credits_clicked()
     ui->signInBox->hide();
     ui->forgetBox->hide();
     ui->createAnAccountBox->hide();
+    ui->Notifications->setText("");
 
     ui->creditsBox->show();
 
-    ui->creditsBox->setText("CS 340 Project Fall 2013<br/><br/><br/>Instructor:<br/> Luc Renambot <br/><br/><br/>Team Members:<br/>Bresia Prudente<br/>Saleha Amreen<br/>Andrey Melikhov<br/>Pongsit Twichpongtorn");
+    ui->creditsBox->setText("CS 340 Project Fall 2013<br/><br/>"\
+                            "Instructor: Luc Renambot<br/>"
+                            "TA: Kaiser Newaj Asif<br/><br/>"
+                            "Team Members:<br/>"
+                            "Bresia Prudente<br/>Saleha Amreen<br/>"
+                            "Andrey Melikhov<br/>Pongsit Twichpongtorn");
 }
 
 void WelcomePage::on_signIn_clicked()
@@ -51,6 +58,7 @@ void WelcomePage::on_signIn_clicked()
     ui->creditsBox->hide();
     ui->forgetBox->hide();
     ui->createAnAccountBox->hide();
+    ui->Notifications->setText("");
 
     ui->signInBox->show();
 }
@@ -66,46 +74,17 @@ void WelcomePage::on_pushButton_clicked()
     myPost->setPost("username",username);
     myPost->setPost("password",password);
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(doThis1(MyNetwork *)));
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(enterMainWindow(MyNetwork *)));
     myPost->sendPost();
 }
 
-void WelcomePage::doThis1(MyNetwork *myPost){
-
-    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
-    QJsonObject jsonObject = jsonResponse.object();
-    qDebug() << myPost->theResponse;
-    QJsonValue theStatusValue = jsonObject.value("status");
-    QJsonValue theInfoValue = jsonObject.value("userInfo");
-    QJsonObject theInfoValueObject = theInfoValue.toObject();
-    QJsonValue theUsername = theInfoValueObject["username"];
-    QJsonValue theFirstName = theInfoValueObject["firstName"];
-    QJsonValue theLastName = theInfoValueObject["lastName"];
-    QJsonValue theEmail = theInfoValueObject["email"];
-    QJsonValue theUserID = theInfoValueObject["userID"];
-
-    qDebug() << theEmail.toString();
-    if(theStatusValue.toString().compare("Good") == 0){
-        this->hide();
-        MainWindow mainWindow;
-        mainWindow.setUserID(theUserID.toString());
-        mainWindow.setHiUserText("Hi! "+theFirstName.toString()+" "+theLastName.toString()+" <br /> "+
-                                 "Your email is "+theEmail.toString()+" <br /> "+
-                                 "Your username is "+theUsername.toString());
-        //mainWindow.showInfo(responsStr);
-        mainWindow.show();
-        mainWindow.setFixedSize(mainWindow.size());
-        mainWindow.exec();
-    }else{
-        ui->Notifications->setText(theStatusValue.toString());
-    }
-}
 
 void WelcomePage::on_forgetPassword_clicked()
 {
     ui->signInBox->hide();
     ui->creditsBox->hide();
     ui->createAnAccountBox->hide();
+    ui->Notifications->setText("");
 
     ui->forgetBox->show();
 }
@@ -115,6 +94,7 @@ void WelcomePage::on_createAnAccount_clicked()
     ui->signInBox->hide();
     ui->creditsBox->hide();
     ui->forgetBox->hide();
+    ui->Notifications->setText("");
 
     ui->createAnAccountBox->show();
 }
@@ -136,36 +116,39 @@ void WelcomePage::on_submitInCreateAcc_clicked()
     myPost->setPost("password",password);
     myPost->setPost("email",email);
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(doThis2(MyNetwork *)));
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(enterMainWindow(MyNetwork *)));
     myPost->sendPost();
+
+    Confirmation confirmation;
+    confirmation.createdAccount();
+    confirmation.show();
+    confirmation.raise();
+    confirmation.exec();
 }
 
-void WelcomePage::doThis2(MyNetwork *myPost){
+void WelcomePage::enterMainWindow(MyNetwork *myPost){
 
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
-    qDebug() << myPost->theResponse;
     QJsonValue theStatusValue = jsonObject.value("status");
     QJsonValue theInfoValue = jsonObject.value("userInfo");
     QJsonObject theInfoValueObject = theInfoValue.toObject();
-    QJsonValue theUsername = theInfoValueObject["username"];
-    QJsonValue theFirstName = theInfoValueObject["firstName"];
-    QJsonValue theLastName = theInfoValueObject["lastName"];
-    QJsonValue theEmail = theInfoValueObject["email"];
     QJsonValue theUserID = theInfoValueObject["userID"];
-
-    qDebug() << theEmail.toString();
+    qDebug() << jsonObject;
     if(theStatusValue.toString().compare("Good") == 0){
         this->hide();
         MainWindow mainWindow;
         mainWindow.setUserID(theUserID.toString());
-        mainWindow.setHiUserText("Congratulations! Your username is "+theUsername.toString()+" <br />"
-                                  +" Your email is " + theEmail.toString());
-        //mainWindow.showInfo(responsStr);
+        mainWindow.setGlobalObject(myPost->theResponse);
+        mainWindow.setHiUserText();
         mainWindow.show();
         mainWindow.setFixedSize(mainWindow.size());
         mainWindow.exec();
     }else{
-        ui->Notifications->setText(theStatusValue.toString());
+        if(theStatusValue.toString().compare("") != 0){
+            ui->Notifications->setText(theStatusValue.toString());
+        }else{
+            ui->Notifications->setText("The server is not available.");
+        }
     }
 }
