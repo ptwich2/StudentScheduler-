@@ -39,21 +39,24 @@ class Ui_MainWindow
 public:
     QTabWidget *tabWidget;
     QWidget *homeTab;
+    QLabel *eventText;
     QCalendarWidget *calendarWidget;
+    QLabel *hiUser;
     QWidget *addNew;
     QToolBox *toolBox;
     QWidget *addSemester;
-    QGridLayout *gridLayout_3;
-    QLabel *startDate;
-    QDateEdit *dateStart;
-    QLabel *endDate;
+    QGridLayout *gridLayout;
     QDateEdit *dateEnd;
+    QLabel *endDate;
+    QDateEdit *dateStart;
     QLabel *semesterName;
+    QLabel *startDate;
     QLineEdit *semesterNameEdit;
     QPushButton *createButton;
+    QLabel *label_28;
     QLabel *notificationSemester;
     QWidget *addHolidays;
-    QFormLayout *formLayout_5;
+    QGridLayout *gridLayout_2;
     QLabel *label_5;
     QLineEdit *holidayName;
     QLabel *label_2;
@@ -63,6 +66,7 @@ public:
     QLabel *label_4;
     QTextEdit *holidayComments;
     QDialogButtonBox *holidayChanges;
+    QLabel *notificationHoliday;
     QWidget *addNewClass;
     QToolBox *toolBox_2;
     QWidget *course;
@@ -146,85 +150,97 @@ public:
         tabWidget->setFont(font);
         homeTab = new QWidget();
         homeTab->setObjectName(QStringLiteral("homeTab"));
+        eventText = new QLabel(homeTab);
+        eventText->setObjectName(QStringLiteral("eventText"));
+        eventText->setGeometry(QRect(380, 30, 271, 311));
+        eventText->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         calendarWidget = new QCalendarWidget(homeTab);
         calendarWidget->setObjectName(QStringLiteral("calendarWidget"));
-        calendarWidget->setGeometry(QRect(10, 10, 351, 311));
+        calendarWidget->setGeometry(QRect(20, 20, 411, 361));
+        hiUser = new QLabel(homeTab);
+        hiUser->setObjectName(QStringLiteral("hiUser"));
+        hiUser->setGeometry(QRect(0, 10, 501, 121));
         tabWidget->addTab(homeTab, QString());
         addNew = new QWidget();
         addNew->setObjectName(QStringLiteral("addNew"));
         toolBox = new QToolBox(addNew);
         toolBox->setObjectName(QStringLiteral("toolBox"));
-        toolBox->setGeometry(QRect(20, 20, 661, 301));
+        toolBox->setGeometry(QRect(20, 20, 651, 341));
         addSemester = new QWidget();
         addSemester->setObjectName(QStringLiteral("addSemester"));
-        addSemester->setGeometry(QRect(0, 0, 661, 231));
-        gridLayout_3 = new QGridLayout(addSemester);
-        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        startDate = new QLabel(addSemester);
-        startDate->setObjectName(QStringLiteral("startDate"));
+        addSemester->setGeometry(QRect(0, 0, 288, 173));
+        gridLayout = new QGridLayout(addSemester);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        dateEnd = new QDateEdit(addSemester);
+        dateEnd->setObjectName(QStringLiteral("dateEnd"));
+        dateEnd->setDateTime(QDateTime(QDate(2013, 1, 1), QTime(0, 0, 0)));
+        dateEnd->setCalendarPopup(true);
 
-        gridLayout_3->addWidget(startDate, 0, 0, 1, 1);
+        gridLayout->addWidget(dateEnd, 1, 2, 1, 1);
+
+        endDate = new QLabel(addSemester);
+        endDate->setObjectName(QStringLiteral("endDate"));
+
+        gridLayout->addWidget(endDate, 1, 1, 1, 1);
 
         dateStart = new QDateEdit(addSemester);
         dateStart->setObjectName(QStringLiteral("dateStart"));
         dateStart->setDateTime(QDateTime(QDate(2013, 1, 1), QTime(0, 0, 0)));
         dateStart->setCalendarPopup(true);
 
-        gridLayout_3->addWidget(dateStart, 0, 1, 1, 1);
-
-        endDate = new QLabel(addSemester);
-        endDate->setObjectName(QStringLiteral("endDate"));
-
-        gridLayout_3->addWidget(endDate, 1, 0, 1, 1);
-
-        dateEnd = new QDateEdit(addSemester);
-        dateEnd->setObjectName(QStringLiteral("dateEnd"));
-        dateEnd->setDateTime(QDateTime(QDate(2013, 1, 1), QTime(0, 0, 0)));
-        dateEnd->setCalendarPopup(true);
-
-        gridLayout_3->addWidget(dateEnd, 1, 1, 1, 1);
+        gridLayout->addWidget(dateStart, 0, 2, 1, 1);
 
         semesterName = new QLabel(addSemester);
         semesterName->setObjectName(QStringLiteral("semesterName"));
 
-        gridLayout_3->addWidget(semesterName, 2, 0, 1, 1);
+        gridLayout->addWidget(semesterName, 2, 1, 1, 1);
+
+        startDate = new QLabel(addSemester);
+        startDate->setObjectName(QStringLiteral("startDate"));
+
+        gridLayout->addWidget(startDate, 0, 1, 1, 1);
 
         semesterNameEdit = new QLineEdit(addSemester);
         semesterNameEdit->setObjectName(QStringLiteral("semesterNameEdit"));
         semesterNameEdit->setAutoFillBackground(false);
 
-        gridLayout_3->addWidget(semesterNameEdit, 2, 1, 1, 1);
+        gridLayout->addWidget(semesterNameEdit, 2, 2, 1, 1);
 
         createButton = new QPushButton(addSemester);
         createButton->setObjectName(QStringLiteral("createButton"));
 
-        gridLayout_3->addWidget(createButton, 3, 1, 1, 1);
+        gridLayout->addWidget(createButton, 3, 2, 1, 1);
+
+        label_28 = new QLabel(addSemester);
+        label_28->setObjectName(QStringLiteral("label_28"));
+
+        gridLayout->addWidget(label_28, 4, 0, 1, 1);
 
         notificationSemester = new QLabel(addSemester);
         notificationSemester->setObjectName(QStringLiteral("notificationSemester"));
 
-        gridLayout_3->addWidget(notificationSemester, 4, 0, 1, 1);
+        gridLayout->addWidget(notificationSemester, 4, 1, 1, 2);
 
         toolBox->addItem(addSemester, QStringLiteral("Add New Semester"));
         addHolidays = new QWidget();
         addHolidays->setObjectName(QStringLiteral("addHolidays"));
-        addHolidays->setGeometry(QRect(0, 0, 661, 231));
-        formLayout_5 = new QFormLayout(addHolidays);
-        formLayout_5->setObjectName(QStringLiteral("formLayout_5"));
+        addHolidays->setGeometry(QRect(0, 0, 651, 271));
+        gridLayout_2 = new QGridLayout(addHolidays);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         label_5 = new QLabel(addHolidays);
         label_5->setObjectName(QStringLiteral("label_5"));
 
-        formLayout_5->setWidget(0, QFormLayout::LabelRole, label_5);
+        gridLayout_2->addWidget(label_5, 0, 0, 1, 2);
 
         holidayName = new QLineEdit(addHolidays);
         holidayName->setObjectName(QStringLiteral("holidayName"));
 
-        formLayout_5->setWidget(0, QFormLayout::FieldRole, holidayName);
+        gridLayout_2->addWidget(holidayName, 0, 2, 1, 1);
 
         label_2 = new QLabel(addHolidays);
         label_2->setObjectName(QStringLiteral("label_2"));
 
-        formLayout_5->setWidget(1, QFormLayout::LabelRole, label_2);
+        gridLayout_2->addWidget(label_2, 1, 0, 1, 1);
 
         holidayStart = new QDateEdit(addHolidays);
         holidayStart->setObjectName(QStringLiteral("holidayStart"));
@@ -232,36 +248,41 @@ public:
         holidayStart->setMinimumDateTime(QDateTime(QDate(1752, 9, 14), QTime(0, 0, 0)));
         holidayStart->setCalendarPopup(true);
 
-        formLayout_5->setWidget(1, QFormLayout::FieldRole, holidayStart);
+        gridLayout_2->addWidget(holidayStart, 1, 2, 1, 1);
 
         label_3 = new QLabel(addHolidays);
         label_3->setObjectName(QStringLiteral("label_3"));
 
-        formLayout_5->setWidget(2, QFormLayout::LabelRole, label_3);
+        gridLayout_2->addWidget(label_3, 2, 0, 1, 1);
 
         holidayEnd = new QDateEdit(addHolidays);
         holidayEnd->setObjectName(QStringLiteral("holidayEnd"));
         holidayEnd->setDateTime(QDateTime(QDate(2013, 1, 1), QTime(0, 0, 0)));
         holidayEnd->setCalendarPopup(true);
 
-        formLayout_5->setWidget(2, QFormLayout::FieldRole, holidayEnd);
+        gridLayout_2->addWidget(holidayEnd, 2, 2, 1, 1);
 
         label_4 = new QLabel(addHolidays);
         label_4->setObjectName(QStringLiteral("label_4"));
 
-        formLayout_5->setWidget(3, QFormLayout::LabelRole, label_4);
+        gridLayout_2->addWidget(label_4, 3, 0, 1, 2);
 
         holidayComments = new QTextEdit(addHolidays);
         holidayComments->setObjectName(QStringLiteral("holidayComments"));
 
-        formLayout_5->setWidget(3, QFormLayout::FieldRole, holidayComments);
+        gridLayout_2->addWidget(holidayComments, 3, 2, 1, 1);
 
         holidayChanges = new QDialogButtonBox(addHolidays);
         holidayChanges->setObjectName(QStringLiteral("holidayChanges"));
         holidayChanges->setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Reset);
         holidayChanges->setCenterButtons(true);
 
-        formLayout_5->setWidget(4, QFormLayout::SpanningRole, holidayChanges);
+        gridLayout_2->addWidget(holidayChanges, 4, 1, 1, 2);
+
+        notificationHoliday = new QLabel(addHolidays);
+        notificationHoliday->setObjectName(QStringLiteral("notificationHoliday"));
+
+        gridLayout_2->addWidget(notificationHoliday, 5, 0, 1, 3);
 
         toolBox->addItem(addHolidays, QStringLiteral("Add New Holidays"));
         tabWidget->addTab(addNew, QString());
@@ -272,7 +293,7 @@ public:
         toolBox_2->setGeometry(QRect(10, 10, 701, 341));
         course = new QWidget();
         course->setObjectName(QStringLiteral("course"));
-        course->setGeometry(QRect(0, 0, 228, 78));
+        course->setGeometry(QRect(0, 0, 701, 236));
         formLayout_3 = new QFormLayout(course);
         formLayout_3->setObjectName(QStringLiteral("formLayout_3"));
         label = new QLabel(course);
@@ -339,7 +360,7 @@ public:
         toolBox_2->addItem(days, QStringLiteral("Days"));
         timings = new QWidget();
         timings->setObjectName(QStringLiteral("timings"));
-        timings->setGeometry(QRect(0, 0, 701, 236));
+        timings->setGeometry(QRect(0, 0, 224, 113));
         formLayout = new QFormLayout(timings);
         formLayout->setObjectName(QStringLiteral("formLayout"));
         label_7 = new QLabel(timings);
@@ -409,11 +430,11 @@ public:
         classEvents->setGeometry(QRect(9, 36, 621, 311));
         page = new QWidget();
         page->setObjectName(QStringLiteral("page"));
-        page->setGeometry(QRect(0, 0, 621, 241));
+        page->setGeometry(QRect(0, 0, 100, 30));
         classEvents->addItem(page, QStringLiteral(""));
         widget = new QWidget();
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(0, 0, 100, 30));
+        widget->setGeometry(QRect(0, 0, 621, 241));
         classEvents->addItem(widget, QStringLiteral(""));
         label_27 = new QLabel(tab);
         label_27->setObjectName(QStringLiteral("label_27"));
@@ -450,7 +471,7 @@ public:
         gradeA->setGeometry(QRect(67, 85, 167, 27));
         gradeB = new QLineEdit(GPA);
         gradeB->setObjectName(QStringLiteral("gradeB"));
-        gradeB->setGeometry(QRect(67, 118, 167, 27));
+        gradeB->setGeometry(QRect(66, 120, 171, 27));
         gradeC = new QLineEdit(GPA);
         gradeC->setObjectName(QStringLiteral("gradeC"));
         gradeC->setGeometry(QRect(67, 151, 167, 27));
@@ -502,13 +523,48 @@ public:
         pushButton->setGeometry(QRect(30, 380, 114, 32));
         pushButton->setAutoDefault(false);
         tabWidget->addTab(profileTab, QString());
+        QWidget::setTabOrder(tabWidget, calendarWidget);
+        QWidget::setTabOrder(calendarWidget, dateStart);
+        QWidget::setTabOrder(dateStart, dateEnd);
+        QWidget::setTabOrder(dateEnd, semesterNameEdit);
+        QWidget::setTabOrder(semesterNameEdit, createButton);
+        QWidget::setTabOrder(createButton, courseName);
+        QWidget::setTabOrder(courseName, courseType);
+        QWidget::setTabOrder(courseType, monday);
+        QWidget::setTabOrder(monday, tuesday);
+        QWidget::setTabOrder(tuesday, wednesday);
+        QWidget::setTabOrder(wednesday, thursday);
+        QWidget::setTabOrder(thursday, friday);
+        QWidget::setTabOrder(friday, saturday);
+        QWidget::setTabOrder(saturday, sunday);
+        QWidget::setTabOrder(sunday, startTime);
+        QWidget::setTabOrder(startTime, endTime);
+        QWidget::setTabOrder(endTime, createCourse);
+        QWidget::setTabOrder(createCourse, eventName);
+        QWidget::setTabOrder(eventName, eventStartTime);
+        QWidget::setTabOrder(eventStartTime, eventEndTime);
+        QWidget::setTabOrder(eventEndTime, eventNotificationTime);
+        QWidget::setTabOrder(eventNotificationTime, sendNotification);
+        QWidget::setTabOrder(sendNotification, createEvent);
+        QWidget::setTabOrder(createEvent, gradeA);
+        QWidget::setTabOrder(gradeA, gradeB);
+        QWidget::setTabOrder(gradeB, gradeC);
+        QWidget::setTabOrder(gradeC, gradeD);
+        QWidget::setTabOrder(gradeD, gradeF);
+        QWidget::setTabOrder(gradeF, calculateGPA);
+        QWidget::setTabOrder(calculateGPA, pushButton);
+        QWidget::setTabOrder(pushButton, holidayChanges);
+        QWidget::setTabOrder(holidayChanges, holidayEnd);
+        QWidget::setTabOrder(holidayEnd, holidayComments);
+        QWidget::setTabOrder(holidayComments, holidayStart);
+        QWidget::setTabOrder(holidayStart, holidayName);
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(6);
+        tabWidget->setCurrentIndex(0);
         toolBox->setCurrentIndex(1);
-        toolBox_2->setCurrentIndex(2);
-        classEvents->setCurrentIndex(0);
+        toolBox_2->setCurrentIndex(0);
+        classEvents->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -517,11 +573,14 @@ public:
     void retranslateUi(QDialog *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Scheduler", 0));
+        eventText->setText(QString());
+        hiUser->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(homeTab), QApplication::translate("MainWindow", "Home", 0));
-        startDate->setText(QApplication::translate("MainWindow", "Start Date", 0));
         endDate->setText(QApplication::translate("MainWindow", "End Date", 0));
         semesterName->setText(QApplication::translate("MainWindow", "Name of Semester", 0));
+        startDate->setText(QApplication::translate("MainWindow", "Start Date", 0));
         createButton->setText(QApplication::translate("MainWindow", "Create", 0));
+        label_28->setText(QString());
         notificationSemester->setText(QString());
         toolBox->setItemText(toolBox->indexOf(addSemester), QApplication::translate("MainWindow", "Add New Semester", 0));
         label_5->setText(QApplication::translate("MainWindow", "Holiday Name", 0));
@@ -529,6 +588,7 @@ public:
         holidayStart->setDisplayFormat(QApplication::translate("MainWindow", "M/d/yy", 0));
         label_3->setText(QApplication::translate("MainWindow", "End:", 0));
         label_4->setText(QApplication::translate("MainWindow", "Comments", 0));
+        notificationHoliday->setText(QString());
         toolBox->setItemText(toolBox->indexOf(addHolidays), QApplication::translate("MainWindow", "Add New Holidays", 0));
         tabWidget->setTabText(tabWidget->indexOf(addNew), QApplication::translate("MainWindow", "Add New", 0));
         label->setText(QApplication::translate("MainWindow", "Course Name", 0));
@@ -573,6 +633,11 @@ public:
         label_16->setText(QApplication::translate("MainWindow", "C", 0));
         label_17->setText(QApplication::translate("MainWindow", "D", 0));
         label_18->setText(QApplication::translate("MainWindow", "F", 0));
+        gradeA->setText(QApplication::translate("MainWindow", "0", 0));
+        gradeB->setText(QApplication::translate("MainWindow", "0", 0));
+        gradeC->setText(QApplication::translate("MainWindow", "0", 0));
+        gradeD->setText(QApplication::translate("MainWindow", "0", 0));
+        gradeF->setText(QApplication::translate("MainWindow", "0", 0));
         calculateGPA->setText(QApplication::translate("MainWindow", "Calculate GPA", 0));
         label_12->setText(QApplication::translate("MainWindow", "Grade Weight", 0));
         label_19->setText(QApplication::translate("MainWindow", "4", 0));

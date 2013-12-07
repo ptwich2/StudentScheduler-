@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "mynetwork.h"
+#include "event.h"
 
 #include <iostream>
 #include <QDateTime>
@@ -55,7 +56,6 @@ void MainWindow::setHiUserText(){
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
     QJsonObject jsonObject = jsonResponse.object();
     qDebug() << "In main window.";
-    qDebug() << globalObjects;
     QJsonValue theStatusValue = jsonObject.value("status");
     QJsonValue theInfoValue = jsonObject.value("userInfo");
     QJsonObject theInfoValueObject = theInfoValue.toObject();
@@ -163,9 +163,36 @@ void MainWindow::okBox()
 
 void MainWindow::sendHolidayName(MyNetwork *myPost)
 {
-    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     qDebug() << myPost->theResponse;
+    QJsonValue theStatusValue = jsonObject.value("status");
+    QJsonValue theInfoValue = jsonObject.value("userInfo");
+    QJsonObject theInfoValueObject = theInfoValue.toObject();
+
+    //Declare value of the objects using our field names
+
+
+    QJsonValue holidayNameContents = theInfoValueObject["holidayName"];
+    QJsonValue holidayCommentsContents = theInfoValueObject["holidayComments"];
+    QJsonValue holidayStartDate = theInfoValueObject["holidayStartDate"];
+    QJsonValue holidayEndDate = theInfoValueObject["holidayEndDate"];
+
+
+    //If the server confirms the information, then it sends back a message
+    //Otherwise it sends an error message
+    if(theStatusValue.toString().compare("Good") == 0)
+    {
+        //go to calander to display holida
+        ui->tabWidget->setCurrentIndex(0);
+    }
+    else
+    {
+        //error, stay on the same page
+        ui->notificationHoliday->setText(theStatusValue.toString());
+        ui->tabWidget->setCurrentIndex(1);
+
+    }
 
 }
 
@@ -179,7 +206,7 @@ void MainWindow::resetBox()
 
 void MainWindow::on_createCourse_clicked()
 {
-   // ui->tabWidget->setCurrentIndex(1);
+
     QString courseName = ui->courseName->text();
     QString courseType = ui->courseType->currentText();
     int monday =  ui->monday->isChecked();
@@ -192,13 +219,6 @@ void MainWindow::on_createCourse_clicked()
     QString startTime = ui->startTime->time().toString();
     QString endTime = ui->endTime->time().toString();
 
-    qDebug() << courseName;
-    qDebug() << courseType;
-    qDebug() << saturday;
-    qDebug() << sunday;
-    qDebug() << startTime;
-    qDebug() << endTime;
-    qDebug() << userID;
     MyNetwork *myPost = new MyNetwork;
 
 
@@ -221,8 +241,7 @@ void MainWindow::on_createCourse_clicked()
     myPost->sendPost();
 
 
-    ui->tabWidget->setCurrentIndex(4);
-    ui->classEvents->setItemText(1, courseName);
+
     /*Once the information is sent to the server, reset the fields*/
 
     ui->courseName->clear();
@@ -331,6 +350,21 @@ void MainWindow::sendGPA(MyNetwork *myPost)
 
       //Declare value of the objects using our field names
       QJsonValue gpa = theInfoValueObject["gpa"];
+      //If the server confirms the information, then it sends back a message
+      //Otherwise it sends an error message
+      if(theStatusValue.toString().compare("Good") == 0)
+      {
+          //course created, go to add events
+         ui->tabWidget->setCurrentIndex(5);
+      }
+      else
+      {
+          //error, stay on the same page
+          ui->tabWidget->setCurrentIndex(5);
+      }
+
+
+
 
 
 }
@@ -399,23 +433,100 @@ void MainWindow::sendEvent(MyNetwork *myPost)
  *
  * Debug: Use addHoliday data to test before implementation of adding events
  */
-void MainWindow::on_eventCalendar_clicked(const QDate &date)
+void MainWindow::on_calendarWidget_clicked(const QDate &date)
 {
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
+    QJsonObject jsonObject = jsonResponse.object();
 
-    //ui->showEvent->setText("testing"); //sanity check for buttons
+    QJsonValue theInfoValue = jsonObject.value("class");
+    QJsonArray classes = theInfoValue.toArray();
 
-    /*
-     * 1. Grab the information from the server. (requires global variables)
-     *      Specific field names to grab:
-     *          holidayName
-     *          holidayStartDate
-     *          holidayEndDate
-     *
-     * 2. Add information to calendar.
-     *      Compare dates to that of the calendar.
-     *      If they match, then "add" the dates.
-     *
-     * 3. Debug
-     */
+    int dayOfWeekNum = date.dayOfWeek();
+    QString output = "<h3>Your schedule for "+date.toString()+"</h3>";
+    foreach(QJsonValue theClass, classes)
+    {
+        QJsonObject theClassInfo = theClass.toObject();
+        QString className = theClassInfo["className"].toString();
+        QString classType = theClassInfo["courseType"].toString();
+        QString classID = theClassInfo["classID"].toString();
+        int monday = theClassInfo["monday"].toString().toInt();
+        int tuesday = theClassInfo["tuesday"].toString().toInt();
+        int wednesday = theClassInfo["wednesday"].toString().toInt();
+        int thursday = theClassInfo["thursday"].toString().toInt();
+        int friday = theClassInfo["friday"].toString().toInt();
+        int saturday = theClassInfo["saturday"].toString().toInt();
+        int sunday = theClassInfo["sunday"].toString().toInt();
+        QString startTime = theClassInfo["startTime"].toString();
+        QString endTime = theClassInfo["endTime"].toString();
+
+        QString outputLocal = "<a style=\"text-decoration:none; color:black;\" href=\""+classID+"\"><h4>"+className+"</h4>"
+                              "<table>"
+                                    "<tr><td>Type:</td><td style=\"padding-left:10px;\">"+classType+"</td></tr>"
+                                    "<tr><td>Start Time:</td><td style=\"padding-left:10px;\">"+startTime+"</td></tr>"
+                                    "<tr><td>End Time:</td><td style=\"padding-left:10px;\">"+endTime+"</td></tr>"
+                              "</table></a>";
+
+        switch(dayOfWeekNum){
+            case 1:
+            if(monday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 2:
+            if(tuesday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 3:
+            if(wednesday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 4:
+            if(thursday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 5:
+            if(friday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 6:
+            if(saturday == 1){
+                output+=outputLocal;
+            }
+            break;
+            case 7:
+            if(sunday == 1){
+                output+=outputLocal;
+            }
+            break;
+        }
+
+        ui->eventText->setText(output);
+    }
 
 }
+
+void MainWindow::on_eventText_linkActivated(const QString &link)
+{
+    Event event;
+    event.setClassID(link);
+    event.setUserID(userID);
+    event.exec();
+    qDebug() << link;
+}
+
+void MainWindow::on_eventText_linkHovered(const QString &link)
+{
+
+}
+void MainWindow::updateGlobalObject(MyNetwork *myPost)
+{
+    QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
+    QJsonObject jsonObject = jsonResponse.object();
+    this->setGlobalObject(myPost->theResponse);
+    qDebug() << globalObjects;
+}
+

@@ -161,9 +161,9 @@ public:
         label_11->setFont(font);
         Notifications = new QLabel(WelcomePage);
         Notifications->setObjectName(QStringLiteral("Notifications"));
-        Notifications->setGeometry(QRect(50, 380, 361, 20));
+        Notifications->setGeometry(QRect(60, 380, 341, 20));
         Notifications->setFont(font);
-        Notifications->setAlignment(Qt::AlignCenter);
+        Notifications->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         label_3->raise();
         credits->raise();
         creditsBox->raise();
@@ -183,11 +183,11 @@ public:
 
     void retranslateUi(QDialog *WelcomePage)
     {
-        WelcomePage->setWindowTitle(QApplication::translate("WelcomePage", "Scheduler", 0));
+        WelcomePage->setWindowTitle(QApplication::translate("WelcomePage", "Student Scheduler", 0));
         label_3->setText(QApplication::translate("WelcomePage", "The app designed by students for students.", 0));
         credits->setText(QApplication::translate("WelcomePage", "Credits", 0));
         creditsBox->setText(QApplication::translate("WelcomePage", "<html><head/><body><p><br/></p></body></html>", 0));
-        label_2->setText(QApplication::translate("WelcomePage", "Welcome to Scheduler", 0));
+        label_2->setText(QApplication::translate("WelcomePage", "Welcome to Student Scheduler", 0));
         forgetPassword->setText(QApplication::translate("WelcomePage", "Forget Password", 0));
         signIn->setText(QApplication::translate("WelcomePage", "Sign In", 0));
         createAnAccount->setText(QApplication::translate("WelcomePage", "Create an account", 0));

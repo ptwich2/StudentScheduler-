@@ -1,4 +1,0 @@
-StudentScheduler-
-=================
-
-Student Scheduler

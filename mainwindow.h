@@ -25,31 +25,33 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_createButton_clicked();
-    void sendSemesterName(MyNetwork *myPost);
-    //void on_semesterChanges_clicked(QAbstractButton *button);
+
 
     void resetBox();
     void okBox();
-    void sendHolidayName(MyNetwork *myPost);
+    void sendSemesterName(MyNetwork *myPost);
+      void sendHolidayName(MyNetwork *myPost);
+        void sendClassName(MyNetwork *myPost);
+          void sendGPA(MyNetwork *myPost);
+          void updateGlobalObject(MyNetwork *myPost);
+            void sendEvent(MyNetwork *myPost);
 
-    void sendClassName(MyNetwork *myPost);
 
-    void sendGPA(MyNetwork *myPost);
-
-    void sendEvent(MyNetwork *myPost);
     void on_holidayChanges_clicked(QAbstractButton *button);
 
     void on_createCourse_clicked();
 
     void on_calculateGPA_clicked();
-    void on_classFolder_clicked();
-
-
+    void on_createButton_clicked();
     void on_createEvent_clicked();
 
-    void on_eventCalendar_clicked(const QDate &date);
 
+
+    void on_calendarWidget_clicked(const QDate &date);
+
+    void on_eventText_linkActivated(const QString &link);
+
+    void on_eventText_linkHovered(const QString &link);
 
 private:
     Ui::MainWindow *ui;

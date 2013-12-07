@@ -17,13 +17,17 @@ SOURCES += main.cpp\
         home.cpp \
     welcomepage.cpp \
     mainwindow.cpp \
-    mynetwork.cpp
+    mynetwork.cpp \
+    event.cpp
+
 
 HEADERS  += home.h \
     welcomepage.h \
     mainwindow.h \
-    mynetwork.h
+    mynetwork.h \
+    event.h
 
 FORMS    += home.ui \
     welcomepage.ui \
-    mainwindow.ui
+    mainwindow.ui   \
+    event.ui
