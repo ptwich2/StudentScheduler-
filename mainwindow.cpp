@@ -54,8 +54,10 @@ void MainWindow::setGlobalObject(QByteArray u)
 void MainWindow::setHiUserText(){
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
     QJsonObject jsonObject = jsonResponse.object();
+
     QJsonValue theInfoValue = jsonObject.value("userInfo");
     QJsonObject theInfoValueObject = theInfoValue.toObject();
+
     QJsonValue theUsername = theInfoValueObject["username"];
     QJsonValue theFirstName = theInfoValueObject["firstName"];
     QJsonValue theLastName = theInfoValueObject["lastName"];
@@ -395,23 +397,22 @@ void MainWindow::calendarWidget()
     //Grabs information from the server
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(globalObjects);
     QJsonObject jsonObject = jsonResponse.object();
-    //Grab event & holiday information
-    QJsonValue theInfoValueEvent = jsonObject.value("event");
-    QJsonValue theInfoValueHoliday = jsonObject.value("holidays");
-    QJsonArray events = theInfoValueEvent.toArray();
-    QJsonArray holidays2 = theInfoValueHoliday.toArray();
 
+    //Grab event & holiday information
+    QJsonValue theInfoValue = jsonObject.value("calendarDates");
+    QJsonArray theDateInfo = theInfoValue.toArray();
 
     //When parsing each event, grab their date and convert to string
-    foreach(QJsonValue theEvent, events)
+    foreach(QJsonValue theDates, theDateInfo)
     {
-        //Converting dates to string
-        QJsonObject theEventInfo = theEvent.toObject();
-        QString eventDate = theEventInfo["eventDate"].toString();
+        QJsonObject theEventHoliday = theDates.toObject();
+        QString events = theEventHoliday["eventDate"].toString();
+        QString holidayBegins = theEventHoliday["holidayStartDate"].toString();
+        QString holidayEnds = theEventHoliday["holidayEndDate"].toString();
 
         //There should be a string comparison between the event & calendar
         //If there are no event dates, then calendar shouldn't be marked
-        if( !eventDate.isEmpty() )
+        if( !events.isEmpty() || (!holidayBegins.isEmpty() && !holidayEnds.isEmpty()) )
         {
             //Set brush to the color red
             QBrush brush;
@@ -423,25 +424,6 @@ void MainWindow::calendarWidget()
             ui->calendarWidget->setDateTextFormat( QDate::currentDate(), cf );
         }
 
-    }
-
-    foreach(QJsonValue theHoliday, holidays2)
-    {
-        QJsonObject theHolidayInfo = theHoliday.toObject();
-        QString holidayStartDate = theHolidayInfo["holidayStartDate"].toString();
-        QString holidayEndDate = theHolidayInfo["holidayEndDate"].toString();
-
-        if( ( !holidayStartDate.isEmpty() ) && ( !holidayEndDate.isEmpty()) )
-        {
-            //Set brush to the color red
-            QBrush brush;
-            brush.setColor( Qt::red);
-
-            //Have the brush color mark dates
-            QTextCharFormat cf = ui->calendarWidget->dateTextFormat( QDate::currentDate() );
-            cf.setBackground( brush );
-            ui->calendarWidget->setDateTextFormat( QDate::currentDate(), cf );
-        }
     }
 
 }
