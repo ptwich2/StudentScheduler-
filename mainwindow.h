@@ -48,11 +48,6 @@ private slots:
     void calendarWidget();
 
 
-    void on_backToSemester_clicked();
-
-    void on_backToCourse_clicked();
-
-    void on_backToHome_clicked();
 
 
 
@@ -64,13 +59,7 @@ private slots:
 
     void on_goToNewOrOld_clicked();
 
-    void on_backToNewOrOld_clicked();
 
-    void on_backToAddEvents_clicked();
-
-    void on_backToHomeFromSem_clicked();
-
-    void on_backToHomeFromGPA_clicked();
 
     void on_goToNewOrOldSemester_clicked();
 

@@ -126,7 +126,6 @@ void WelcomePage::on_backButton_clicked()
 
 
 
-    qDebug() << currIndex;
 
 }
 
