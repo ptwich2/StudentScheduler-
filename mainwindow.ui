@@ -43,7 +43,7 @@
     <string notr="true">border-color: rgb(85, 0, 255);</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="calendar">
     <widget class="QScrollArea" name="scrollEvents">
@@ -197,7 +197,7 @@
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="neworoldsemester">
       <widget class="QRadioButton" name="createNewSemester">
@@ -942,8 +942,8 @@ border-color: rgb(85, 0, 255);</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>98</width>
-              <height>28</height>
+              <width>221</width>
+              <height>331</height>
              </rect>
             </property>
             <widget class="QTextBrowser" name="eventText_2">
