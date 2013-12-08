@@ -42,12 +42,52 @@ private slots:
 
     void on_eventText_linkActivated(const QString &link);
 
-    void on_eventText_linkHovered(const QString &link);
 
     void colorCodeCalendar();
 
     void calendarWidget();
 
+
+    void on_backToSemester_clicked();
+
+    void on_backToCourse_clicked();
+
+    void on_backToHome_clicked();
+
+
+
+    void on_goToSchedule_clicked();
+
+    void on_goToCalculator_clicked();
+
+    void on_goToProfile_clicked();
+
+    void on_goToNewOrOld_clicked();
+
+    void on_backToNewOrOld_clicked();
+
+    void on_backToAddEvents_clicked();
+
+    void on_backToHomeFromSem_clicked();
+
+    void on_backToHomeFromGPA_clicked();
+
+    void on_goToNewOrOldSemester_clicked();
+
+
+
+    void on_goToCreateOrOldClass_clicked();
+
+    void on_seeAll_clicked();
+
+    void on_goToCalendar_clicked();
+
+    void on_seeAllEvents_clicked();
+
+    void on_buttonBox_accepted();
+
+    void on_backButton_clicked();
+    
 private:
     Ui::MainWindow *ui;
 };

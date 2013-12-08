@@ -25,16 +25,24 @@ private slots:
 
     void on_signIn_clicked();
 
-    void on_pushButton_clicked();
 
     void on_forgetPassword_clicked();
 
     void on_createAnAccount_clicked();
 
-    void on_password_returnPressed();
 
     void enterMainWindow(MyNetwork *myPost);
+
     void on_submitInCreateAcc_clicked();
+
+    void on_backButton_clicked();
+
+
+     void on_submitInSignIn_clicked();
+
+     void on_forgetPassword_2_clicked();
+
+     void on_submitForgetPassword_clicked();
 
 private:
     Ui::WelcomePage *ui;

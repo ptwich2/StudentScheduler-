@@ -3,6 +3,7 @@
 #include "mynetwork.h"
 #include "event.h"
 #include "confirmation.h"
+#include "welcomepage.h"
 
 #include <iostream>
 #include <QDateTime>
@@ -23,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->tabWidget->setCurrentIndex(0);
+    ui->scheduleWidget->setCurrentIndex(0);
     
     QPushButton *okButton = ui->holidayChanges->button(QDialogButtonBox::Ok);
     connect(okButton, SIGNAL(clicked()), this, SLOT(okBox()));
@@ -99,8 +100,7 @@ void MainWindow::on_createButton_clicked()
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
-
-    MainWindow::confirmationWindow(1);
+    ui->scheduleWidget->setCurrentIndex(1);
 }//end createSemesterButton
 
 void MainWindow::okBox()
@@ -139,7 +139,6 @@ void MainWindow::resetBox()
 
 void MainWindow::on_createCourse_clicked()
 {
-    ui->tabWidget->setCurrentIndex(1);
     QString courseName = ui->courseName->text();
     QString courseType = ui->courseType->currentText();
     int monday =  ui->monday->isChecked();
@@ -152,13 +151,7 @@ void MainWindow::on_createCourse_clicked()
     QString startTime = ui->startTime->time().toString();
     QString endTime = ui->endTime->time().toString();
 
-    qDebug() << courseName;
-    qDebug() << courseType;
-    qDebug() << saturday;
-    qDebug() << sunday;
-    qDebug() << startTime;
-    qDebug() << endTime;
-    qDebug() << userID;
+
     MyNetwork *myPost = new MyNetwork;
 
 
@@ -180,22 +173,8 @@ void MainWindow::on_createCourse_clicked()
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
 
-    MainWindow::confirmationWindow(3);
 
-    /*Once the information is sent to the server, reset the fields*/
-
-//    ui->courseName->clear();
-//    ui->courseType->setCurrentIndex(0);
-//    ui->monday->setCheckState(false);
-//    ui->tuesday->setCheckState(false);
-//    ui->wednesday->setCheckState(false);
-//    ui->thursday->setCheckState(false);
-//    ui->friday->setCheckState(false);
-//    ui->saturday->setCheckState(false);
-//    ui->sunday->setCheckState(false);
-//    ui->startTime->setTime(QTime::currentTime());
-//    ui->endTime->setTime(QTime::currentTime());
-
+    ui->scheduleWidget->setCurrentIndex(4);
 }
 
 void MainWindow::updateGlobalObject(MyNetwork *myPost)
@@ -203,31 +182,25 @@ void MainWindow::updateGlobalObject(MyNetwork *myPost)
     QJsonDocument jsonResponse  = QJsonDocument::fromJson(myPost->theResponse);
     QJsonObject jsonObject = jsonResponse.object();
     this->setGlobalObject(myPost->theResponse);
-    qDebug() << globalObjects;
+
 }
 
 
 void MainWindow::on_calculateGPA_clicked()
 {
-    ui->tabWidget->setCurrentIndex(2);
+
     int gradeA = ui->gradeA->text().toInt();
     int gradeB = ui->gradeB->text().toInt();
     int gradeC = ui->gradeC->text().toInt();
     int gradeD = ui->gradeD->text().toInt();
     int gradeF = ui->gradeF->text().toInt();
-    float GPA = ((gradeA *4) + (gradeB*3) + (gradeC*2) + (gradeD * 1) + (gradeF * 0)) / (gradeA + gradeB + gradeC + gradeD + gradeF);
-
-    qDebug() << GPA;
+    int totalPoints = (gradeA + gradeB + gradeC + gradeD + gradeF);
+    int gradePoints = (gradeA *4) + (gradeB*3) + (gradeC*2) + (gradeD * 1) + (gradeF * 0);
+    float gpa = (gradePoints/totalPoints);
+    QString temp = QString::number(gpa, 'f', 2);
+    ui->gpa->setText(temp);
 
     MyNetwork *myPost = new MyNetwork;
-
-//    myPost->setPost("userID",userID);
-//    myPost->setPost("action","calculateGPA");
-//    myPost->setPost("gradeA", gradeA);
-//    myPost->setPost("gradeB", gradeB);
-//    myPost ->setPost("gradeC", gradeC);
-//    myPost ->setPost("gradeD", gradeD);
-//    myPost ->setPost ("gradeF", gradeF);
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
@@ -306,6 +279,7 @@ void MainWindow::on_calendarWidget_clicked(const QDate &date)
         }
 
         ui->eventText->setText(output);
+
     }
 
 }
@@ -319,10 +293,7 @@ void MainWindow::on_eventText_linkActivated(const QString &link)
     qDebug() << link;
 }
 
-void MainWindow::on_eventText_linkHovered(const QString &link)
-{
 
-}
 
 void MainWindow::confirmationWindow(int i)
 {
@@ -402,6 +373,7 @@ void MainWindow::calendarWidget()
     QJsonValue theInfoValue = jsonObject.value("calendarDates");
     QJsonArray theDateInfo = theInfoValue.toArray();
 
+
     //When parsing each event, grab their date and convert to string
     foreach(QJsonValue theDates, theDateInfo)
     {
@@ -422,8 +394,141 @@ void MainWindow::calendarWidget()
             QTextCharFormat cf = ui->calendarWidget->dateTextFormat( QDate::currentDate() );
             cf.setBackground( brush );
             ui->calendarWidget->setDateTextFormat( QDate::currentDate(), cf );
+
         }
 
     }
+}
 
+
+//FORWARD BUTTONS
+
+void MainWindow::on_goToSchedule_clicked()
+{
+    ui->mainWidget->setCurrentIndex(1);
+    ui->scheduleWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_goToCalculator_clicked()
+{
+    ui->mainWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_goToProfile_clicked()
+{
+    ui->mainWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_goToNewOrOld_clicked()
+{
+    int newSem = ui->createNewSemester->isChecked();
+    int oldSem = ui->chooseFromOldSemesters->isChecked();
+    QString oldSemName = ui->oldSemesters->currentText();
+
+    if (newSem == 1){
+        ui->scheduleWidget->setCurrentIndex(2);
+    }
+    if (oldSem == 1){
+        ui->scheduleWidget->setCurrentIndex(1);
+    }
+
+
+}
+
+
+void MainWindow::on_goToCreateOrOldClass_clicked()
+{
+    int newClass = ui->createNewCourse->isChecked();
+    int oldClass = ui->chooseFromOldCourse->isChecked();
+    QString oldClassName = ui->oldCourses->currentText();
+
+    if (newClass == 1)
+    {
+        ui->scheduleWidget->setCurrentIndex(3);
+    }
+    else if (oldClass == 1){
+        ui->scheduleWidget->setCurrentIndex(4);
+    }
+
+}
+
+
+
+
+
+
+//MainWidget backs
+
+
+
+void MainWindow::on_goToNewOrOldSemester_clicked()
+{
+    ui->scheduleWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_seeAll_clicked()
+{
+    ui->eventsWidget->setCurrentIndex(1);
+}
+
+void MainWindow::on_goToCalendar_clicked()
+{
+    ui->mainWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_seeAllEvents_clicked()
+{
+    ui->mainWidget->setCurrentIndex(1);
+    ui->scheduleWidget->setCurrentIndex(4);
+    ui->eventsWidget->setCurrentIndex(1);
+
+}
+
+void MainWindow::on_buttonBox_accepted()
+{
+    QString eventName = ui->eventName->text();
+    QString time = ui->eventTimeEdit->time().toString();
+    QString date = ui->eventDateEdit->date().toString();
+
+    QString output ="<table>"
+                  "<tr><td>Event Name:</td><td style=\"padding-left:10px;\">"+eventName+"</td></tr>"
+                  "<tr><td>at </td><td style=\"padding-left:10px;\">"+time+"</td></tr>"
+                  "<tr><td>on:</td><td style=\"padding-left:10px;\">"+date+"</td></tr>"
+            "</table></a>";
+      ui->eventText_2->setText(output);
+
+}
+
+void MainWindow::on_backButton_clicked()
+{
+    int currIndexMain = ui->mainWidget->currentIndex();
+    int currIndexSchedule   =   ui->scheduleWidget->currentIndex();
+    int currIndexEvents     =   ui->eventsWidget->currentIndex();
+
+    if (currIndexMain == 0){
+        this->hide();
+        WelcomePage welcomePage;
+        welcomePage.show();
+        welcomePage.exec();
+
+    }
+    
+    else if ( (currIndexMain == 1 || currIndexMain == 2 || currIndexMain == 3) &&
+         (currIndexSchedule == 0 ) && (currIndexEvents == 0)){
+        ui->mainWidget->setCurrentIndex(0);
+    }
+    if ((currIndexMain == 1) && (currIndexSchedule == 0)){
+        ui->mainWidget->setCurrentIndex(0);
+    }
+    else if ((currIndexMain == 1)&&((currIndexSchedule == 1) || currIndexSchedule ==2)){
+        ui->scheduleWidget->setCurrentIndex(0);
+    }
+    else if ((currIndexMain == 1) && (currIndexSchedule == 3)){
+         ui->scheduleWidget->setCurrentIndex(1);
+    }
+    else if (((currIndexMain == 1) && (currIndexSchedule == 4 )) && ((currIndexSchedule == 0) || (currIndexSchedule == 1)) ) {
+        ui->mainWidget->setCurrentIndex(0);
+
+    }
 }
