@@ -100,42 +100,45 @@ void MainWindow::on_createButton_clicked()
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
-    ui->scheduleWidget->setCurrentIndex(1);
+    ui->scheduleWidget->setCurrentIndex(3);
+
+
 }//end createSemesterButton
 
-void MainWindow::okBox()
-{
-    QString holidayNameContents = ui->holidayName->text();
-    QString holidayCommentsContents = ui->holidayComments->toPlainText();
-    QString holidayStartDate = ui->holidayStart->date().toString();
-    QString holidayEndDate = ui->holidayEnd->date().toString();
+//void MainWindow::okBox()
+//{
+//    QString holidayNameContents = ui->holidayName->text();
+//    QString holidayCommentsContents = ui->holidayComments->toPlainText();
+//    QString holidayStartDate = ui->holidayStart->date().toString();
+//    QString holidayEndDate = ui->holidayEnd->date().toString();
+//    ui->error->setText(holidayNameContents + "has been added to the calendar");
+//    qDebug() << holidayNameContents;
+//    qDebug() << holidayStartDate;
+//    qDebug() << userID;
+//    MyNetwork *myPost = new MyNetwork;
+//    myPost->setPost("userID",userID);
+//    myPost->setPost("action","addHoliday");
+//    myPost->setPost("holidayName", holidayNameContents);
+//    myPost->setPost("holidayComments", holidayCommentsContents);
+//    myPost->setPost("holidayStartDate", holidayStartDate);
+//    myPost->setPost("holidayEndDate",holidayEndDate);
+//    myPost->setPost("holidayComments",holidayCommentsContents);
 
-    qDebug() << holidayNameContents;
-    qDebug() << holidayStartDate;
-    qDebug() << userID;
-    MyNetwork *myPost = new MyNetwork;
-    myPost->setPost("userID",userID);
-    myPost->setPost("action","addHoliday");
-    myPost->setPost("holidayName", holidayNameContents);
-    myPost->setPost("holidayComments", holidayCommentsContents);
-    myPost->setPost("holidayStartDate", holidayStartDate);
-    myPost->setPost("holidayEndDate",holidayEndDate);
-    myPost->setPost("holidayComments",holidayCommentsContents);
+//    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
+//    myPost->sendPost();
 
-    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
-    myPost->sendPost();
+//  //  MainWindow::confirmationWindow(2);
+//    MainWindow::colorCodeCalendar();
 
-    MainWindow::confirmationWindow(2);
-    MainWindow::colorCodeCalendar();
-}
+//}
 
-void MainWindow::resetBox()
-{
-    ui->holidayName->clear();
-    ui->holidayComments->clear();
-    ui->holidayStart->setDate(QDate::currentDate());
-    ui->holidayEnd->setDate(QDate::currentDate());
-}
+//void MainWindow::resetBox()
+//{
+//    ui->holidayName->clear();
+//    ui->holidayComments->clear();
+//    ui->holidayStart->setDate(QDate::currentDate());
+//    ui->holidayEnd->setDate(QDate::currentDate());
+//}
 
 void MainWindow::on_createCourse_clicked()
 {
@@ -442,22 +445,6 @@ void MainWindow::on_goToProfile_clicked()
     ui->mainWidget->setCurrentIndex(3);
 }
 
-void MainWindow::on_goToNewOrOld_clicked()
-{
-    int newSem = ui->createNewSemester->isChecked();
-    int oldSem = ui->chooseFromOldSemesters->isChecked();
-    QString oldSemName = ui->oldSemesters->currentText();
-
-    if (newSem == 1){
-        ui->scheduleWidget->setCurrentIndex(2);
-    }
-    if (oldSem == 1){
-        ui->scheduleWidget->setCurrentIndex(1);
-    }
-
-
-}
-
 
 void MainWindow::on_goToCreateOrOldClass_clicked()
 {
@@ -467,10 +454,11 @@ void MainWindow::on_goToCreateOrOldClass_clicked()
 
     if (newClass == 1)
     {
-        ui->scheduleWidget->setCurrentIndex(3);
+        ui->scheduleWidget->setCurrentIndex(5);
     }
     else if (oldClass == 1){
-        ui->scheduleWidget->setCurrentIndex(4);
+        ui->scheduleWidget->setCurrentIndex(6);
+        ui->eventsWidget->setCurrentIndex(0);
     }
 
 }
@@ -486,7 +474,19 @@ void MainWindow::on_goToCreateOrOldClass_clicked()
 
 void MainWindow::on_goToNewOrOldSemester_clicked()
 {
-    ui->scheduleWidget->setCurrentIndex(0);
+    int newSem = ui->createNewSemester->isChecked();
+    int oldSem = ui->chooseFromOldSemesters->isChecked();
+    QString oldSemName = ui->oldSemesters->currentText();
+
+    if (newSem == 1){
+        ui->scheduleWidget->setCurrentIndex(4);
+    }
+    if (oldSem == 1){
+        ui->scheduleWidget->setCurrentIndex(3);
+    }
+
+
+
 }
 
 
@@ -497,7 +497,9 @@ void MainWindow::on_seeAll_clicked()
 
 void MainWindow::on_goToCalendar_clicked()
 {
+    clearError();
     ui->mainWidget->setCurrentIndex(0);
+
 }
 
 void MainWindow::on_seeAllEvents_clicked()
@@ -520,6 +522,7 @@ void MainWindow::on_createEvent_clicked()
                   "<tr><td>on:</td><td style=\"padding-left:10px;\">"+date+"</td></tr>"
             "</table></a>";
       ui->eventText_2->setText(output);
+      ui->eventsWidget->setCurrentIndex(1);
 
 }
 
@@ -567,10 +570,10 @@ void MainWindow::on_backButton_clicked()
     else if ((currIndexMain == 1) && (currIndexSchedule == 5 )){
         ui->scheduleWidget->setCurrentIndex(3);
     }
-    else if (((currIndexMain == 1) && (currIndexSchedule == 6 )) && (currIndexSchedule == 0)){
+    else if (((currIndexMain == 1) && (currIndexSchedule == 6 )) && (currIndexEvents == 0)){
         ui->scheduleWidget->setCurrentIndex(2);
     }
-    else if (((currIndexMain == 1) && (currIndexSchedule == 6 )) && (currIndexSchedule == 1)){
+    else if (((currIndexMain == 1) && (currIndexSchedule == 6 )) && (currIndexEvents == 1)){
         ui->scheduleWidget->setCurrentIndex(2);
     }
 
@@ -581,3 +584,50 @@ void MainWindow::on_backButton_clicked()
 
 
 
+
+void MainWindow::on_go_eventsOrHoliday_clicked()
+{
+    int addEvent = ui->addEvent->isChecked();
+    int addHoliday = ui->addHoliday->isChecked();
+
+    if (addEvent == 1){
+        ui->scheduleWidget->setCurrentIndex(2);
+        on_createEvent_clicked();
+
+    }
+    else if (addHoliday == 1){
+        ui->scheduleWidget->setCurrentIndex(1);
+    }
+}
+
+
+
+void MainWindow::clearError(){
+     ui->error->setText("");
+}
+
+void MainWindow::on_createHoliday_clicked()
+{
+    QString holidayNameContents = ui->holidayName->text();
+    QString holidayCommentsContents = ui->holidayComments->toPlainText();
+    QString holidayStartDate = ui->holidayStart->date().toString();
+    QString holidayEndDate = ui->holidayEnd->date().toString();
+    ui->error->setText(holidayNameContents + " has been added to the calendar!");
+    qDebug() << holidayNameContents;
+    qDebug() << holidayStartDate;
+    qDebug() << userID;
+    MyNetwork *myPost = new MyNetwork;
+    myPost->setPost("userID",userID);
+    myPost->setPost("action","addHoliday");
+    myPost->setPost("holidayName", holidayNameContents);
+    myPost->setPost("holidayComments", holidayCommentsContents);
+    myPost->setPost("holidayStartDate", holidayStartDate);
+    myPost->setPost("holidayEndDate",holidayEndDate);
+    myPost->setPost("holidayComments",holidayCommentsContents);
+
+    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
+    myPost->sendPost();
+
+  //  MainWindow::confirmationWindow(2);
+    MainWindow::colorCodeCalendar();
+}

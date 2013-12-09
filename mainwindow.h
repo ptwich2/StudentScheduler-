@@ -28,9 +28,6 @@ public:
 private slots:
     void on_createButton_clicked();
 
-    void resetBox();
-    void okBox();
-
     void updateGlobalObject(MyNetwork *myPost);
 
     void on_createCourse_clicked();
@@ -57,7 +54,7 @@ private slots:
 
     void on_goToProfile_clicked();
 
-    void on_goToNewOrOld_clicked();
+
 
 
 
@@ -73,22 +70,21 @@ private slots:
 
     void on_seeAllEvents_clicked();
 
-    void on_buttonBox_accepted();
 
     void on_backButton_clicked();
 
 
-    void on_newEvent_clicked();
 
-    void on_buttonBox_clicked();
 
-    void on_seeCalendar_clicked();
-
-    void on_butonBox_clicked();
 
     void on_createEvent_clicked();
 
-    void on_go_clicked();
+
+    void on_go_eventsOrHoliday_clicked();
+
+    void clearError();
+
+    void on_createHoliday_clicked();
 
 private:
     Ui::MainWindow *ui;

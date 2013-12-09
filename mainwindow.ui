@@ -197,6 +197,22 @@ background-color: rgb(85, 170, 255);</string>
         </item>
        </layout>
       </widget>
+      <widget class="QPushButton" name="go_eventsOrHoliday">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>300</y>
+         <width>81</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Go</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="addHolidayPage">
       <widget class="QFrame" name="frame_6">
@@ -205,7 +221,7 @@ background-color: rgb(85, 170, 255);</string>
          <x>30</x>
          <y>20</y>
          <width>221</width>
-         <height>301</height>
+         <height>251</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -271,9 +287,6 @@ background-color: rgb(85, 170, 255);</string>
           <month>9</month>
           <day>14</day>
          </datetime>
-        </property>
-        <property name="displayFormat">
-         <string>M/d/yy</string>
         </property>
         <property name="calendarPopup">
          <bool>true</bool>
@@ -449,6 +462,9 @@ background-color: rgb(85, 170, 255);</string>
           <day>1</day>
          </datetime>
         </property>
+        <property name="displayFormat">
+         <string>M/d/yy</string>
+        </property>
         <property name="calendarPopup">
          <bool>true</bool>
         </property>
@@ -466,6 +482,38 @@ background-color: rgb(85, 170, 255);</string>
          <string>End:</string>
         </property>
        </widget>
+      </widget>
+      <widget class="QPushButton" name="createHoliday">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>300</y>
+         <width>81</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Create Holiday</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="goToCalendar">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>300</y>
+         <width>81</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Calendar</string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="neworoldsemester">
@@ -504,15 +552,21 @@ background-color: rgb(85, 170, 255);</string>
          <height>22</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
       </widget>
-      <widget class="QPushButton" name="goToNewOrOld">
+      <widget class="QPushButton" name="goToNewOrOldSemester">
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>310</y>
-         <width>91</width>
-         <height>51</height>
+         <y>300</y>
+         <width>81</width>
+         <height>41</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Go</string>
@@ -555,6 +609,25 @@ background-color: rgb(85, 170, 255);</string>
          <height>22</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="goToCreateOrOldClass">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>300</y>
+         <width>81</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Go</string>
+       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="newsemester">
@@ -577,7 +650,7 @@ background-color: rgb(85, 170, 255);</string>
          <x>10</x>
          <y>10</y>
          <width>271</width>
-         <height>291</height>
+         <height>271</height>
         </rect>
        </property>
        <property name="frameShape">
@@ -666,11 +739,11 @@ background-color: rgb(85, 170, 255);</string>
        <zorder>semesterName</zorder>
        <zorder>endDate</zorder>
       </widget>
-      <widget class="QPushButton" name="go">
+      <widget class="QPushButton" name="createButton">
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>290</y>
+         <y>300</y>
          <width>81</width>
          <height>41</height>
         </rect>
@@ -912,6 +985,22 @@ background-color: rgb(85, 170, 255);</string>
          <string>Course Type</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="createCourse">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>290</y>
+          <width>81</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Go</string>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="event">
@@ -928,7 +1017,7 @@ background-color: rgb(85, 170, 255);</string>
         <string notr="true">background-color: rgb(85, 170, 255);</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="addEvents">
         <widget class="QFrame" name="frame_7">
@@ -936,8 +1025,8 @@ background-color: rgb(85, 170, 255);</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>261</width>
-           <height>281</height>
+           <width>251</width>
+           <height>331</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -946,107 +1035,187 @@ background-color: rgb(85, 170, 255);</string>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_26">
-            <property name="text">
-             <string>Name</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="3">
-           <widget class="QLineEdit" name="eventName">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_27">
-            <property name="text">
-             <string>Date</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QDateEdit" name="eventDateEdit">
-            <property name="focusPolicy">
-             <enum>Qt::NoFocus</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="dateTime">
-             <datetime>
-              <hour>0</hour>
-              <minute>0</minute>
-              <second>0</second>
-              <year>2013</year>
-              <month>1</month>
-              <day>1</day>
-             </datetime>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-            <property name="currentSectionIndex">
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_24">
-            <property name="text">
-             <string>Time</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1" colspan="3">
-           <widget class="QTimeEdit" name="eventTimeEdit">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_25">
-            <property name="text">
-             <string>Notify</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QSpinBox" name="notifyH">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QLabel" name="label_28">
-            <property name="text">
-             <string>h</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3">
-           <widget class="QSpinBox" name="notifyM">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="4">
-           <widget class="QLabel" name="label_29">
-            <property name="text">
-             <string>m prior</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QLabel" name="label_26">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>40</y>
+            <width>27</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="eventName">
+          <property name="geometry">
+           <rect>
+            <x>59</x>
+            <y>40</y>
+            <width>171</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_27">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>96</y>
+            <width>23</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Date</string>
+          </property>
+         </widget>
+         <widget class="QDateEdit" name="eventDateEdit">
+          <property name="geometry">
+           <rect>
+            <x>59</x>
+            <y>96</y>
+            <width>171</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="dateTime">
+           <datetime>
+            <hour>0</hour>
+            <minute>0</minute>
+            <second>0</second>
+            <year>2013</year>
+            <month>1</month>
+            <day>1</day>
+           </datetime>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+          <property name="currentSectionIndex">
+           <number>0</number>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_24">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>152</y>
+            <width>22</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Time</string>
+          </property>
+         </widget>
+         <widget class="QTimeEdit" name="eventTimeEdit">
+          <property name="geometry">
+           <rect>
+            <x>59</x>
+            <y>152</y>
+            <width>171</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_25">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>208</y>
+            <width>29</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Notify</string>
+          </property>
+         </widget>
+         <widget class="QSpinBox" name="notifyH">
+          <property name="geometry">
+           <rect>
+            <x>59</x>
+            <y>208</y>
+            <width>37</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_28">
+          <property name="geometry">
+           <rect>
+            <x>109</x>
+            <y>208</y>
+            <width>16</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>h</string>
+          </property>
+         </widget>
+         <widget class="QSpinBox" name="notifyM">
+          <property name="geometry">
+           <rect>
+            <x>158</x>
+            <y>208</y>
+            <width>37</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_29">
+          <property name="geometry">
+           <rect>
+            <x>208</x>
+            <y>208</y>
+            <width>33</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>m prior</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="createEvent">
+          <property name="geometry">
+           <rect>
+            <x>80</x>
+            <y>280</y>
+            <width>81</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>Create Event</string>
+          </property>
+         </widget>
         </widget>
        </widget>
        <widget class="QWidget" name="allEvents">
