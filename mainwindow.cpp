@@ -105,40 +105,6 @@ void MainWindow::on_createButton_clicked()
 
 }//end createSemesterButton
 
-//void MainWindow::okBox()
-//{
-//    QString holidayNameContents = ui->holidayName->text();
-//    QString holidayCommentsContents = ui->holidayComments->toPlainText();
-//    QString holidayStartDate = ui->holidayStart->date().toString();
-//    QString holidayEndDate = ui->holidayEnd->date().toString();
-//    ui->error->setText(holidayNameContents + "has been added to the calendar");
-//    qDebug() << holidayNameContents;
-//    qDebug() << holidayStartDate;
-//    qDebug() << userID;
-//    MyNetwork *myPost = new MyNetwork;
-//    myPost->setPost("userID",userID);
-//    myPost->setPost("action","addHoliday");
-//    myPost->setPost("holidayName", holidayNameContents);
-//    myPost->setPost("holidayComments", holidayCommentsContents);
-//    myPost->setPost("holidayStartDate", holidayStartDate);
-//    myPost->setPost("holidayEndDate",holidayEndDate);
-//    myPost->setPost("holidayComments",holidayCommentsContents);
-
-//    connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
-//    myPost->sendPost();
-
-//  //  MainWindow::confirmationWindow(2);
-//    MainWindow::colorCodeCalendar();
-
-//}
-
-//void MainWindow::resetBox()
-//{
-//    ui->holidayName->clear();
-//    ui->holidayComments->clear();
-//    ui->holidayStart->setDate(QDate::currentDate());
-//    ui->holidayEnd->setDate(QDate::currentDate());
-//}
 
 void MainWindow::on_createCourse_clicked()
 {
