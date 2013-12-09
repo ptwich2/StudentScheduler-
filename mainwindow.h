@@ -76,7 +76,20 @@ private slots:
     void on_buttonBox_accepted();
 
     void on_backButton_clicked();
-    
+
+
+    void on_newEvent_clicked();
+
+    void on_buttonBox_clicked();
+
+    void on_seeCalendar_clicked();
+
+    void on_butonBox_clicked();
+
+    void on_createEvent_clicked();
+
+    void on_go_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

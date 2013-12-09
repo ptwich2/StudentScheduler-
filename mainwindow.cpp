@@ -26,14 +26,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->scheduleWidget->setCurrentIndex(0);
     
-    QPushButton *okButton = ui->holidayChanges->button(QDialogButtonBox::Ok);
-    connect(okButton, SIGNAL(clicked()), this, SLOT(okBox()));
+//    QPushButton *okButton = ui->go->button(QDialogButtonBox::Ok);
+//    connect(okButton, SIGNAL(clicked()), this, SLOT(okBox()));
 
-    QPushButton *resetButton = ui->holidayChanges->button(QDialogButtonBox::Reset);
-    connect(resetButton, SIGNAL(clicked()), this, SLOT(resetBox()));
+//    QPushButton *resetButton = ui->holidayChanges->button(QDialogButtonBox::Reset);
+//    connect(resetButton, SIGNAL(clicked()), this, SLOT(resetBox()));
 
-    ui->holidayStart->setDate(QDate::currentDate());
-    ui->holidayEnd->setDate(QDate::currentDate());
+//    ui->holidayStart->setDate(QDate::currentDate());
+//    ui->holidayEnd->setDate(QDate::currentDate());
 
 }
 
@@ -173,7 +173,17 @@ void MainWindow::on_createCourse_clicked()
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
 
-
+    ui->courseName->clear();
+    ui->courseType->setCurrentIndex(0);
+    ui->monday->setChecked(false);
+    ui->tuesday->setChecked(false);
+    ui->wednesday->setChecked(false);
+    ui->thursday->setChecked(false);
+    ui->friday->setChecked(false);
+    ui->saturday->setChecked(false);
+    ui->sunday->setChecked(false);
+    ui->startTime->setTime(QTime::currentTime());
+    ui->endTime->setTime(QTime::currentTime());
     ui->scheduleWidget->setCurrentIndex(4);
 }
 
@@ -196,6 +206,11 @@ void MainWindow::on_calculateGPA_clicked()
     int gradeF = ui->gradeF->text().toInt();
     int totalPoints = (gradeA + gradeB + gradeC + gradeD + gradeF);
     int gradePoints = (gradeA *4) + (gradeB*3) + (gradeC*2) + (gradeD * 1) + (gradeF * 0);
+    if (totalPoints == 0){
+        ui->error->setText("Cannot divide by 0.");
+    }
+    else{
+        ui->error->setText("");
     float gpa = (gradePoints/totalPoints);
     QString temp = QString::number(gpa, 'f', 2);
     ui->gpa->setText(temp);
@@ -204,6 +219,13 @@ void MainWindow::on_calculateGPA_clicked()
 
     connect(myPost, SIGNAL(donePost(MyNetwork *)),this,SLOT(updateGlobalObject(MyNetwork *)));
     myPost->sendPost();
+    ui->gradeA->setText("0");
+    ui->gradeB->setText("0");
+    ui->gradeC->setText("0");
+    ui->gradeD->setText("0");
+    ui->gradeF->setText("0");
+
+   }
 
 }
 
@@ -279,6 +301,7 @@ void MainWindow::on_calendarWidget_clicked(const QDate &date)
         }
 
         ui->eventText->setText(output);
+        ui->eventText_2->setText(output);
 
     }
 
@@ -485,7 +508,7 @@ void MainWindow::on_seeAllEvents_clicked()
 
 }
 
-void MainWindow::on_buttonBox_accepted()
+void MainWindow::on_createEvent_clicked()
 {
     QString eventName = ui->eventName->text();
     QString time = ui->eventTimeEdit->time().toString();
@@ -500,9 +523,11 @@ void MainWindow::on_buttonBox_accepted()
 
 }
 
+//BACK BUTTON
+
 void MainWindow::on_backButton_clicked()
 {
-    int currIndexMain = ui->mainWidget->currentIndex();
+    int currIndexMain       =   ui->mainWidget->currentIndex();
     int currIndexSchedule   =   ui->scheduleWidget->currentIndex();
     int currIndexEvents     =   ui->eventsWidget->currentIndex();
 
@@ -513,22 +538,46 @@ void MainWindow::on_backButton_clicked()
         welcomePage.exec();
 
     }
+    //back in calculator or profile -> go to home
+    else if ((currIndexMain==2) || (currIndexMain ==3)){
+        ui->mainWidget->setCurrentIndex(0);
+        ui->gpa->setText(" ");
+    }
     
+
     else if ( (currIndexMain == 1 || currIndexMain == 2 || currIndexMain == 3) &&
          (currIndexSchedule == 0 ) && (currIndexEvents == 0)){
         ui->mainWidget->setCurrentIndex(0);
     }
+
+    //schedule
+    //back in addeventorholiday -> go back to home
     if ((currIndexMain == 1) && (currIndexSchedule == 0)){
         ui->mainWidget->setCurrentIndex(0);
     }
+    //back in addholidaypage or newsemester -> go back to addeventoraddholiday
     else if ((currIndexMain == 1)&&((currIndexSchedule == 1) || currIndexSchedule ==2)){
         ui->scheduleWidget->setCurrentIndex(0);
     }
-    else if ((currIndexMain == 1) && (currIndexSchedule == 3)){
-         ui->scheduleWidget->setCurrentIndex(1);
+    //back in
+    else if ((currIndexMain == 1) && ((currIndexSchedule == 3) || (currIndexSchedule == 4))){
+         ui->scheduleWidget->setCurrentIndex(2);
     }
-    else if (((currIndexMain == 1) && (currIndexSchedule == 4 )) && ((currIndexSchedule == 0) || (currIndexSchedule == 1)) ) {
-        ui->mainWidget->setCurrentIndex(0);
 
+    else if ((currIndexMain == 1) && (currIndexSchedule == 5 )){
+        ui->scheduleWidget->setCurrentIndex(3);
     }
+    else if (((currIndexMain == 1) && (currIndexSchedule == 6 )) && (currIndexSchedule == 0)){
+        ui->scheduleWidget->setCurrentIndex(2);
+    }
+    else if (((currIndexMain == 1) && (currIndexSchedule == 6 )) && (currIndexSchedule == 1)){
+        ui->scheduleWidget->setCurrentIndex(2);
+    }
+
+
+
 }
+
+
+
+
